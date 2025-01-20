@@ -1,0 +1,456 @@
+---
+title: "Exploring the affective structure of children's early language environment through egocentric video"
+bibliography: library.bib
+csl: apa7.csl
+document-params: "10pt, letterpaper"
+
+author-information: > 
+    \author{{\large \bf Mira L Nencheva (miran@stanford.edu)} \\ Department of Psychology, Building 420, 450 Jane Stanford Way, Stanford, CA 94305
+    \AND {\large \bf Michael C. Frank (mcfrank@stanford.edu)} \\ Department of Psychology, Building 420, 450 Jane Stanford Way, Stanford, CA 94305}
+
+abstract: >
+    [Add abstract]
+    
+keywords: >
+    [Add keywords].
+    
+output: cogsci2024::cogsci_paper
+#header-includes: \cogscifinalcopy
+---
+
+```{r global_options, include=FALSE}
+knitr::opts_chunk$set(fig.width=3, fig.height=3, fig.crop = F, 
+                      fig.pos = "tb", fig.path='figs/',
+                      echo=F, warning=F, cache=F, 
+                      message=F, sanitize = T)
+```
+
+```{r, libraries}
+library(png)
+library(grid)
+library(ggplot2)
+library(xtable)
+library(dplyr)
+library(tidyr)
+library(wordbankr)
+library(data.table)
+library(lubridate)
+library(stringr)
+library(lmerTest)
+library(ggpubr)
+library(ggrepel)
+
+```
+
+
+```{r, read_data}
+
+merged_data = data.table(read.csv('merged_data.csv'))
+
+
+n_recordings <- length(unique(merged_data$recording))
+n_participants <- length(unique(merged_data$participant))
+
+# number of words all
+distinct_words_overall <- length(unique(merged_data$word))
+# number of all instances
+total_n_instances <- nrow(merged_data)
+
+# number of instances per word
+median_instances_per_word <- merged_data[, .N, by = word]
+setnames(median_instances_per_word, "N", "total_instances")
+median_n_instances_per_word <- median(median_instances_per_word$total_instances,na.rm = TRUE)
+
+# number of distinct words heard by participant
+distinct_words_per_participant <- merged_data[, .(distinct_words = uniqueN(word)), by = participant]
+median_distinct_words_per_participant <-median(distinct_words_per_participant$distinct_words,na.rm = TRUE)
+
+# number of instances per word per participant
+instances_per_word_per_participant <- merged_data[, .N, by = .(participant, word)]
+average_instances_per_participant <- instances_per_word_per_participant[, .(average_instances = mean(N)), by = participant]
+median_instances_per_word <- median(average_instances_per_participant$average_instances, na.rm = TRUE)
+
+```
+# Introduction 
+
+Infants learn language in the context of social interactions, in which they exchange verbal and socio-emotional information with caregivers. When talking to young children, caregivers convey exaggerated positive affect with their faces (@benders2013mommy; @kosie2024infant; Wu et al., 2023), and their speech (@fernald1987acoustic; @fernald1989intonation; @fernald1992human; @kitamura1998infant; @singh2002infants; @panneton2024positive; @trainor2000infant). Although such displays of affect have been theorized to shape language development (@andrews2009integrating; @goldstein2008social; @singh2002infants; @panneton2006slow; @nencheva2023caregiver), how often children encounter these cues in everyday learning is unknown, as prior work depended on time-intensive manual annotation of affect. 
+Caregiver displays of positive affect have been theorized to serve four key functions. First, positive affect in early communication is through to support bonding between the caregiver and the infant (@hennessy2023building). Specifically, moments of shaped positive affect between mothers and infants promote mother-infant neural synchrony (@morgan2023mother), which relates to better attachment (@nguyen2024visualizing). Second, positive affect can serve as a reinforcing signal to support infants' vocal development. For example, when caregivers consistently smiled in response to their infants’ babbling, infants’ babbling became more sophisticated (@goldstein2008social). Therefore, contingent positive affect from caregivers can encourage infants to participate in social interactions in increasingly sophisticated ways. A third possibility is that positive affect engages infants’ attention. For example, infants prefer listening to happy speech (@singh2002infants; @panneton2006slow), and preferentially attend to happy over sad faces (@kim2013young), as well as happy vs. neutral actions (@zieber2014infants). 
+
+A fourth and final possibility is that the affect displayed in parents’ faces and their speech can help infants bootstrap the meaning of words from their context. Many of the words young children know have an emotional component, even if they are not explicitly labeling an emotional state. For example, typically, the word “cake” has positive associations, whereas the word “garbage” has negative associations. This is even more clear in abstract words like “good” and “bad.” Prior research has found that children learn abstract words that have this emotional component earlier (@ponari2018acquisition; @ponari2020role), compared to abstract words that do not carry affective information (e.g., the word “think”). One reason for this is that caregiver affective cues could make the abstract dimension of valence (the continuum from negative to positive) more tangible. For example, emotion labels in caregiver speech are surrounded by matching valenced utterances (@nencheva2023caregiver). Is similar valenced information available for other words that do not explicitly convey information about emotions? If caregiver affective displays contain formation about the valence of the words they surround, then we would expect that the more positive a given word is, the more likely it is to cooccur with positive affect. 
+
+Despite the theorized importance of affective cues in shaping infants’ language development, we know very little about the kinds of cues that are available to infants in their everyday lives. Recent advances in wearable recorders and cameras have allowed researchers to quantify the infants' at-home experiences and access a more complete picture of early learning input. This approach has challenged some assumptions made by prior experimental work. For example, lab-based recordings of caregiver-child interactions overestimate the amount of caregiver-child interaction in the home, and the availability of learning cues (@bergelson2019day). In the domain of emotion, despite experimental focus on canonical facial expressions of emotion, few of the facial configurations observed by infants fall neatly into canonical facial expression categories (@LoBue2024; @Ogren2024). When researchers manually annotated facial action units of the faces in egocentric view videos from infants, they found that while infants observed some canonical happy facial configurations, few facial configurations mapped onto canonical displays of surprise, anger, fear, or disgust (@LoBue2024; @Ogren2024). The availability and reliability of affective cues surrounding moments of word learning have important implications for the importance and function of these cues in learning. 
+
+There are two big challenges in estimating the prevalence of affective cues in the home environment at scale, one is the availability of multimodal recordings of children’s early experiences, and the second is annotating the resulting datasets. With advances in wearable cameras, the amount of available data has increased (@bergelson2016bergelson; @sullivan2021saycam; @long2024babyview). However, time-consuming manual annotation is still a bottleneck in analyses of affective information in these videos (@LoBue2024; @Ogren2024). In recent years, there’s been a growing interest in developing automated methods for extracting emotion information from text and video (for a review of the literature, see @kusal2023systematic; @leong2023facial; @canedo2019facial).  These computational tools for extracting emotion information are trained on adult data and are not specialized to capture affect in child-centric environments. Although there are increasing efforts in using child-directed data to train models of language or visual experience (@feng2024child; @warstadt2023findings; @orhan2024learning), this has not extended to extracting affective information. Even so, researchers have successfully captured patterns in the presence of social information in the home by applying models trained on adult data (such as pose-detection algorithms) in egocentric videos of children’s early experiences (@long2022automated; @long2022longitudinal). The current investigation is a first step toward applying automated tools to capture affective information from at-home video recordings. 
+
+In the current investigation, we characterized the positive affect cues surrounding language in children’s daily lives. Using automated computer vision and language processing tools, we analyzed 2,054 egocentric view at-home videos during the first 2.5 years of life. We extracted utterances containing early-learned words, and target the facial and linguistic emotion cues surrounding each word instance. Given the prior focus in the literature on positive affective cues in infant-directed communication (@singh2002infants; @trainor2000infant), and that happiness was the most reliably present canonical facial expression in child-view videos (@LoBue2024; @Ogren2024), as a first step, we tagged the degree of displayed happiness in the faces and utterances that coocurred with each word. This enables us to capture the availability of these signals across age, the extent to which words concur with positively valenced faces and utterances. By bridging the gap between naturalistic observations and quantitative analysis, this work provides insights into the emotional contexts of early language experiences, helping to illuminate how affective cues support language learning in real-world settings.
+
+# Method
+## Dataset and participants
+We analyzed `r n_recordings` egocentric view videos (~377 hours of video) from `r n_participants` participants (12F, 5M) in the longitudinal BabyView corpus (@long2024babyview; @long2024babyview). During each recording session, infants wore a helmet with an attached gopro camera, which captured the infant’s egocentric view of their home environment. Videos captured a variety of typical at-home activities. Infants’ ages ranged between 5 and 28 months at the time of recording. Ten of the participating infants were of Mixed ethnicity, and seven were White. This was a highly educated sample, with 13 primary caregivers with completed or in progress graduate degrees and 4 with college degrees. 
+
+## Dataset and code availability
+The raw video recordings and transcripts will be available on Databrary as part of the BabyView corpus. The recording file names (linking to Databrary) and processed data, along with analysis code are available at [omitted for blind review].
+
+## Word instances
+In order to identify the affective cues surrounding moments of word-learning, we marked each instance of the 680 words on the MacArthur-Bates Communicative Development Inventory (MCDI; Fenson, 2007) in the video transcriptions in the BabyView dataset. All instances of the word were included, regardless of the speaker. This resulted in a total of `r distinct_words_overall` distinct word types present in the corpus, with `r formatC(total_n_instances, format = "d", big.mark = ",")` instances total (across all words), with the greatest density of data between the ages of 10 and 20 months (Figure 1a). The data for each participant contained a median of `r median_distinct_words_per_participant` distinct word types in the target set, with a median of `r round(median_instances_per_word,0)` instances per word per participant.
+## Word valence
+To explore how affective cues varied depending on the valence of the word, we used the average adult ratings of word valence from Warriner et al., (2013), along with word frequency in the CHILDES database of transcribed caregiver-child interactions (MacWhinney, 2000), as reported by Braginsky et al., (2019). These data were available for 183 of the words in our dataset.
+
+## Linguistic context affect
+The linguistic affective context for each word was calculated by averaging the sentiment of all utterances in which the word appeared, across all its instances. To compute the sentiment for each word instance, we took the utterance in which the word was embedded (e.g., “Baby has a very cute smile.”), and removed the word itself (e.g., “Baby has a very cute”). We then used a pretrained bert-base-uncased-emotion sentiment analysis model (@Savani2024) to extract the degree to which the sentiment of the utterance (without the target word) matched happiness. This resulted in values between 0 and 1, 0 indicating that the sentiment of the text did not match happiness at all, and 1 indicating a perfect match. For example, after removing the target word “smile,” the utterance “Baby has a very cute [smile]” received a value of 0.99, whereas the utterance “Yeah, I know you [smile] at distress” received a value of 0.25. To estimate the context in which infants encountered each word, for each video recording, we computed an average happiness score across the instances of each word. 
+
+## Facial affect
+For each word instance, we analyzed the video frame coocurring with the utterance containing the word. Each frame was processed using PyFeat (@cheong2023py), an open-source facial analysis package, which uses a pre-trained emotion categorization algorithm. This algorithm assigns a face score value between 0 and 1, indicating its certainty in identifying a face. For the analyses in this paper, we marked frames with a face score of 0.9 and above as containing a face. If multiple faces were present, we selected the face that occupied the largest area in the frame and that received the highest face score. Each detected face was assigned a score between 0 and 1 based on how confidently the facial expression could be categorized as happiness. As with linguistic context affect, we computed an average facial happiness score for each word for each video recording. 
+
+## Analyses
+For all analyses, we computed a summary estimate for each word at the level of each recording. To reflect the nested structure of the data, all models were fit using lme4 and p-values were computed using the lmerTest package in R. All models included random intercepts by participant and by recording. We initially included random slopes by participant as well but the larger models did not converge. In Figures 1 and 3, we plot the slopes for each individual participant in addition to the full-sample trendline. 
+```{r, affect_descriptives}
+
+format_lmer_coefficient <- function(model, coefficient) {
+  # Extract the summary of the model
+  model_summary <- summary(model)
+  
+  # Get the fixed effects table
+  fixed_effects <- model_summary$coefficients
+  
+  # Check if the coefficient exists in the model
+  if (!(coefficient %in% rownames(fixed_effects))) {
+    stop(paste("The coefficient", coefficient, "is not in the model."))
+  }
+  
+  # Extract values for the specified coefficient
+  beta <- fixed_effects[coefficient, "Estimate"]
+  t_value <- fixed_effects[coefficient, "t value"]
+  p_value <- fixed_effects[coefficient, "Pr(>|t|)"]
+  df <- fixed_effects[coefficient, "df"]
+  
+  # Format beta to avoid displaying as 0 for very small values
+  beta_formatted <- ifelse(abs(beta) < 0.01, format(beta, scientific = TRUE, digits = 2), round(beta, 2))
+  
+  # Format p-value with appropriate significance symbols
+  p_value_formatted <- ifelse(p_value < 0.001, "< 0.001", round(p_value, 3))
+  
+  # Return the formatted string for RMarkdown
+  paste0(
+    "\\(\\beta = ", beta_formatted, 
+    ", \\textit{t}(", round(df, 2), ") = ", round(t_value, 2), 
+    ", \\textit{p} = ", p_value_formatted, "\\)"
+  )
+}
+
+summary_by_word_participant_and_recording <- merged_data %>%
+  select(participant,
+         word, valence, frequency, recording, age_in_months,
+         face_present, face_happiness, ling_context_happiness) %>%
+  group_by(participant,
+           word, valence, frequency, recording, age_in_months) %>%
+  summarize(
+    face_proportion = mean(face_present, na.rm = TRUE),
+    face_happiness = ifelse(sum(face_present, na.rm = TRUE) > 0, 
+                            mean(face_happiness[face_present == 1], na.rm = TRUE), 
+                            NA),  # Compute average only where face_present == 1
+    ling_context_happiness = mean(ling_context_happiness, na.rm = TRUE),
+    .groups = "drop"
+  )
+
+summary_by_participant_and_age <- merged_data %>%
+  group_by(participant,age_in_months) %>%
+  summarize(
+    face_proportion = mean(face_present, na.rm = TRUE),
+    face_happiness = ifelse(sum(face_present, na.rm = TRUE) > 0, 
+                            mean(face_happiness[face_present == 1], na.rm = TRUE), 
+                            NA),  # Compute average only where face_present == 1
+    ling_context_happiness = mean(ling_context_happiness, na.rm = TRUE),
+    .groups = "drop"
+  )
+
+
+pct_word_instances_with_face = mean(summary_by_word_participant_and_recording$face_proportion)
+
+
+model_face_proportion_age <- lmer(scale(face_proportion) ~ scale(age_in_months) + (1|participant), summary_by_word_participant_and_recording)
+
+model_face_happiness_age <- lmer(scale(face_happiness) ~ scale(age_in_months) + (1|participant), summary_by_word_participant_and_recording)
+
+model_ling_context_happiness_age <- lmer(scale(ling_context_happiness) ~ scale(age_in_months) + (1|participant), summary_by_word_participant_and_recording)
+
+  
+age_histogram <- ggplot(merged_data, aes(x = age_in_months)) +
+  geom_histogram(binwidth = 1, fill = "gray", color = "black", alpha = 0.7) +
+  labs(
+    title = "",
+    x = "Age in Months",
+    y = "Number of word instances"
+  ) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(hjust = 0.5),  # Center align the title
+    axis.line = element_line(color = "black"),  # Add black axis lines
+    axis.ticks = element_line(color = "black"),  # Add black ticks
+    panel.grid = element_blank()  # Remove all grid lines
+  )  
+
+summary_by_participant_and_age$participant = as.factor(summary_by_participant_and_age$participant)  
+face_present_age_plot <- ggplot(summary_by_participant_and_age, aes(y = face_proportion, x = age_in_months)) +
+  geom_point(alpha = 0.5, size = 1, shape = 19, aes(color = participant)) +
+  geom_smooth(method = 'lm', alpha = 0.9, color = 'gray', linewidth = 2, se = FALSE) +
+  geom_smooth(method = 'lm', alpha = 0.1, linewidth = 0.75, linetype = "dashed", se = FALSE, aes(color = participant, group = participant)) +
+  labs(
+    title = "",
+    y = "Proportion of word instances\nwith a face present",
+    x = "Age (months)"
+  ) +
+  coord_cartesian(ylim = c(0,1))+
+  theme_minimal() +
+  theme(
+    legend.position = 'none',
+    axis.line = element_line(color = "black"),  # Adds black lines to x and y axes
+    axis.ticks = element_line(color = "black")
+  )
+
+long_data <- summary_by_participant_and_age %>%
+  select(participant, age_in_months,face_happiness,ling_context_happiness)%>%
+  pivot_longer(
+    cols = c(face_happiness,ling_context_happiness),
+    names_to = "emotion",
+    values_to = "score"
+  ) %>%
+  mutate(
+    modality = case_when(
+      emotion %in% c("face_happiness") ~ "facial affect",
+      emotion %in% c("ling_context_happiness") ~ "linguistic affect",
+      TRUE ~ NA_character_
+    ),
+    emotion = case_when(
+      emotion %in% c("face_happiness", "ling_context_happiness") ~ "happiness",
+      TRUE ~ emotion
+    )
+  ) 
+
+
+long_data$participant <- as.factor(long_data$participant)
+
+long_data <- long_data %>% filter(!is.na(emotion))
+
+affect_age_plot <- ggplot(long_data, aes(y = score, x = age_in_months)) +
+  facet_grid(cols = vars(modality)) +
+  geom_point(alpha = 0.5, size = 1, shape = 19, aes(color = participant)) +
+  geom_smooth(method = 'lm', alpha = 0.9, color = 'gray', linewidth = 2, se = FALSE) +
+  geom_smooth(method = 'lm', alpha = 0.1, linewidth = 0.75, linetype = "dashed", se = FALSE, aes(color = participant, group = participant)) +
+  labs(
+    title = "",
+    y = "Happiness score (0 to 1)",
+    x = "Age (months)"
+  ) +
+  coord_cartesian(ylim = c(0,1))+
+  theme_minimal() +
+  theme(
+    legend.position = 'none',
+    axis.line = element_line(color = "black"),  # Adds black lines to x and y axes
+    axis.ticks = element_line(color = "black")
+  )
+
+figure1 <-  ggarrange(age_histogram,face_present_age_plot,affect_age_plot,labels = c("(a)", "(b)","(c)"),widths = c(1,1,2),nrow = 1)
+
+
+```
+```{r figure1, fig.env = "figure*", fig.pos = "h", fig.width=7, fig.height=3, fig.align = "center", set.cap.width=T, num.cols.cap=2, fig.cap = "Change in the availability of affective cues with age. (a) Histogram of the word instances across the age range (between 5 and 28 months) in the dataset. (b) Change in the proportion of word instances that coocurred with faces across age. (c) Change in happiness score (from faces - left, or sentiment - right) between the ages of 5 and 28 months. In panels (b-c), the average regression line is plotted in gray. Regression lines for individual participants are plotted with colored dashed lines. Summary data points for each participant (averaged with a single value per participant, per each month of age) are plotted in a color matching the participants’ regression line."}
+figure1
+```
+# Results
+## Availability of facial and linguistic affect cues across age 
+How often do infants encounter facial and linguistic affective cues in the immediate context of early-learned words? On average, `r round(pct_word_instances_with_face,1)`% of word instances occurred when a face was in view. This proportion decreased with age (`r format_lmer_coefficient(model_face_proportion_age,"scale(age_in_months)")`; Figure 1b). Of the word instances where a face was in view concurrently, the average facial happiness score was `r round(mean(summary_by_word_participant_and_recording$face_happiness,na.rm = TRUE),2)` (out of 1). The happiness scores for faces coocurring with instances of early-learned words did not change with age in this dataset  (`r format_lmer_coefficient(model_face_happiness_age,"scale(age_in_months)")`; Figure 1c - left). Out of all `r formatC(total_n_instances, format = "d", big.mark = ",")` word instances, `r formatC(nrow(merged_data[face_present == 1,]), format = "d", big.mark = ",")` (`r round(nrow(merged_data[face_present == 1,])*100/nrow(merged_data),2)`%) occurred with a face in view, and `r nrow(merged_data[face_present == 1 & face_happiness>=0.9,])` (`r round(nrow(merged_data[face_happiness>=0.9 & face_present == 1,])*100/nrow(merged_data),2)`% of all words and `r round(nrow(merged_data[face_happiness>=0.9 &face_present == 1,])*100/nrow(merged_data[face_present == 1,]),2)`% of all words with a face) of those coocurred with a face that received a happiness score greater than 0.9. 
+
+Linguistic affect was, by definition, more prevalent, because we measured the affect of the utterances in which words were embedded. Out of the `r formatC(total_n_instances, format = "d", big.mark = ",")` word instances, `r formatC(nrow(merged_data[ling_context_happiness>=0.9,]), format = "d", big.mark = ",")` (`r round(nrow(merged_data[ling_context_happiness>=0.9,])*100/nrow(merged_data), 1)` %) were embedded in utterances that received a sentiment happiness score of 0.9 or higher. The average sentiment score was `r round(mean(summary_by_word_participant_and_recording$ling_context_happiness,na.rm = TRUE),2)` (out of 1), and, as with facial affect, this value with not change significantly with age  (`r format_lmer_coefficient(model_ling_context_happiness_age,"scale(age_in_months)")`; Figure 1c - right).
+
+
+```{r, affect_word_valence}
+
+model_word_valence_face_happiness <- lmer(scale(valence)~scale(face_happiness) +scale(frequency)+ (1|participant),summary_by_word_participant_and_recording)
+
+model_word_valence_ling_context_happiness <- lmer(scale(valence)~scale(ling_context_happiness)+ scale(frequency) +(1|participant),summary_by_word_participant_and_recording)
+
+interaction_data <- summary_by_word_participant_and_recording %>% 
+  pivot_longer(
+    cols = c(face_happiness,ling_context_happiness),
+    names_to = "emotion",
+    values_to = "score"
+  ) %>%
+  mutate(
+    modality = case_when(
+      emotion %in% c("face_happiness") ~ "facial affect",
+      emotion %in% c("ling_context_happiness") ~ "linguistic affect",
+      TRUE ~ NA_character_
+    ),
+    emotion = case_when(
+      emotion %in% c("face_happiness", "ling_context_happiness") ~ "happiness",
+      TRUE ~ emotion
+    )
+  ) 
+
+model_word_valence_interaction <- lmer(scale(valence)~scale(score)*modality+ scale(frequency) +(1|participant),interaction_data)
+
+
+averages_by_word <- merged_data %>%
+  select(
+    word, valence, 
+    face_happiness, ling_context_happiness
+  ) %>%
+  pivot_longer(
+    cols = c(face_happiness,ling_context_happiness),
+    names_to = "emotion",
+    values_to = "score"
+  ) %>%
+  mutate(
+    modality = case_when(
+      emotion %in% c("face_happiness") ~ "facial affect",
+      emotion %in% c("ling_context_happiness") ~ "linguistic context affect",
+      TRUE ~ NA_character_
+    ),
+    emotion = case_when(
+      emotion %in% c("face_happiness", "ling_context_happiness") ~ "happiness",
+      TRUE ~ emotion
+    )
+  ) %>%
+  group_by(word, valence, modality, emotion) %>%
+  summarize(
+    average_score = mean(score, na.rm = TRUE),  # Compute average score
+    .groups = "drop"
+  )
+averages_by_word <- averages_by_word %>% filter(!is.na(emotion))
+# Set labels to be marked
+fraction <- 0.3  # Top and bottom 30% for extremes
+middle_fraction <- 0.05  # Middle 5% around the median
+
+# Filter extreme and middle points
+labeled_points <- averages_by_word %>%
+  filter(
+    # Extreme values
+    ((average_score)) >= quantile(((average_score)), 1 - fraction, na.rm = TRUE) | 
+    ((average_score)) <= quantile(((average_score)), fraction, na.rm = TRUE) |
+    valence >= quantile(valence, 1 - fraction, na.rm = TRUE) |
+    valence <= quantile(valence, fraction, na.rm = TRUE) |
+    # Middle values
+    (((average_score)) >= quantile(((average_score)), 0.5 - middle_fraction, na.rm = TRUE) & 
+     ((average_score)) <= quantile(((average_score)), 0.5 + middle_fraction, na.rm = TRUE)) |
+    (valence >= quantile(valence, 0.5 - middle_fraction, na.rm = TRUE) & 
+     valence <= quantile(valence, 0.5 + middle_fraction, na.rm = TRUE))
+  )
+
+
+# Create the plot with filtered labels
+word_valence_plot <- ggplot(averages_by_word, aes(x = ((average_score)), y = valence, label = word, color = valence)) +
+  facet_grid(rows = vars(modality)) +
+  geom_point(size = 2) +  # Add points for scatter plot
+  geom_label_repel(
+    data = labeled_points,  # Use only labeled points for labels
+    aes(label = word),
+    size = 3, 
+    max.overlaps = 50, 
+    label.padding = 0.1,  
+    box.padding = 0, 
+    label.size = 0.2,
+    force = 1,            # Strength of repulsion (higher = farther labels)
+    max.time = 0.5,       # Maximum time spent optimizing label positions
+    max.iter = 5000,      # Maximum number of iterations
+    min.segment.length = 0, # Minimum segment length (shortens connector lines)
+    segment.curvature = 0.05   # Adds slight curvature to connector lines
+  ) +
+  coord_cartesian(ylim = c(1,9))+
+  geom_smooth(method = 'lm', se = FALSE, color = 'black', alpha = 0.1, linewidth = 1) +
+  scale_color_gradient(low = "blue", high = "red", name = "Word Valence") +  # Gradient for word_valence
+  theme_minimal() +  # Minimal theme for clean look
+  labs(x = "Happiness score (context)", y = "Valence (word)", title = "") +
+  theme(
+    legend.position = "bottom",
+    legend.orientation = 'horizontal',# Position the legend on the right
+    plot.title = element_text(hjust = 0.5),  # Center align the title,
+    axis.line = element_line(color = "black"),  # Adds black lines to x and y axes
+    axis.ticks = element_line(color = "black"),
+    panel.grid = element_blank(),
+    strip.background = element_rect(
+      fill = "lightgray", 
+      color = "black", 
+      size = 1, 
+      linetype = "solid"
+    )
+  )
+
+```
+```{r figure2, fig.env = "figure*", fig.pos = "h", fig.width=7, fig.height=5, fig.align = "center", set.cap.width=T, num.cols.cap=2, fig.cap = "Association between word valence and affective context. The average happiness score (between 0 and 1) for each word of the faces it coocurred with (top panel), and the utterances in which the word was embedded (omitting the word itself; bottom panel). A subset of word labels are visible and colored based on the valence of the word, coded on a scale from 1 (very negative) to 9 (very positive)."}
+word_valence_plot
+```
+## Words cooccur with matching affective cues
+
+Do the affective cues in parents’ faces and utterances carry information about the words they cooccur with? For example, are more positive words embedded in more positive utterances, and are they more likely to cooccur with happy faces? We tested these predictions in a mixed effect model with random intercepts by participant, predicting the valence of the word from the average facial or linguistic affect it coocurred with in each video recording, controlling for the frequency of the word. 
+Word valence was positively associated with the happiness sentiment of the surrounding utterance (`r format_lmer_coefficient(model_word_valence_ling_context_happiness,"scale(ling_context_happiness)")`; Figure 2 - bottom). For example, the average happiness sentiment score for the utterances in which the positive word “smile” was embedded was `r round(mean(merged_data[word == 'smile',ling_context_happiness],na.rm = TRUE),2)` (out of 1), whereas for the negative word “cry” this score was `r round(mean(merged_data[word == 'cry',ling_context_happiness],na.rm = TRUE),2)`(out of 1). Similarly, a relatively neutral word like “eat” has a score of `r round(mean(merged_data[word == 'eat',ling_context_happiness],na.rm = TRUE),2)` (out of 1). There were some notable exceptions, like the word “gentle,” which, although positive in valence, appeared in less positive contexts (e.g., “I'm worried you need to be a bit more gentle”). 
+ Word valence was positively, but not significantly associated with facial happiness ( `r format_lmer_coefficient(model_word_valence_face_happiness,"scale(face_happiness)")` ; Figure 2 - top). There was a significant interaction between happiness score and the modality of the context (faces vs. sentiment), such that word valence was more strongly associated with the happiness of the utterance in which the word was embedded compared to the happiness displayed by the faces it coocurred with (`r format_lmer_coefficient(model_word_valence_interaction,"scale(score):modalitylinguistic affect")`).
+
+```{r, face_ling_association}
+
+model_face_ling <-(lmer(scale(face_happiness)~scale(ling_context_happiness) + (1|participant),summary_by_word_participant_and_recording))
+
+summary_data <- summary_by_word_participant_and_recording %>%
+  group_by(participant, word) %>%
+  summarize(
+    face_happiness = mean(face_happiness, na.rm = TRUE),  # Compute average score
+    ling_context_happiness = mean(ling_context_happiness, na.rm = TRUE),  # Compute average score
+    .groups = "drop"
+  )
+summary_data$participant = as.factor(summary_data$participant)
+
+face_sentiment_plot <- ggplot(summary_data, aes(y = face_happiness, x = ling_context_happiness)) +
+  geom_point(alpha = 0.05, size = 1, shape = 19) +
+  geom_smooth(method = 'lm', alpha = 0.9, color = 'black', linewidth = 2, se = FALSE) +
+  geom_smooth(method = 'lm', alpha = 0.1, linewidth = 0.75, linetype = "dashed", se = FALSE, aes(color = participant, group = participant)) +
+  labs(
+    title = "",
+    y = "Happiness score (face)",
+    x = "Happiness score (sentiment)"
+  ) +
+  coord_cartesian(ylim = c(0,1), xlim = c(0,1))+
+  theme_minimal() +
+  theme(
+    legend.position = 'none',
+    axis.line = element_line(color = "black"),  # Adds black lines to x and y axes
+    axis.ticks = element_line(color = "black")
+  )
+
+```
+
+## Sentiment and facial affect do not provide redundant information
+
+To further probe if the faces and utterances surrounding word instances carry redundant information, we tested the association between the average happiness score of the faces vs. utterances each word coocurred with. We did so in a mixed effect model where the average happiness score of each word was predicted by the average happiness score of the linguistic context (the utterance) in which each word was embedded with random intercepts by participant. There was no significant association between facial and linguistic context affect `r format_lmer_coefficient(model_face_ling,"scale(ling_context_happiness)")`). 
+
+```{r figure3, fig.env = "figure", fig.pos = "H", fig.align='center', fig.width=3, fig.height=2, set.cap.width=T, num.cols.cap=1, fig.cap = "Association between facial and linguistic affect surrounding words. The average happiness scores for each word, for each recording in the dataset are plotted, with facial affect on the x-axis, and sentiment on the y-axis. The average regression line is plotted in black. Regression lines for individual participants are plotted with colored dashed lines. "}
+face_sentiment_plot
+```
+
+# Discussion
+
+The current investigation expands the gap in our understanding of the availability of affective cues in the moments when infants encounter early-learned words in their everyday lives. We found that faces were in view for only about 1 in 10 words, and an even smaller fraction of those faces displayed happy affect. Further, the degree of happy facial affect did not reliably track the valence of the target word within each utterance. Linguistic context affect (i.e., the utterance in which a word was embedded), on the other hand, conveyed more strongly positive affect, and was reliably related to the valence of the word. Together these results suggest that affective cues in faces and words may function differently in infants’ early learning environments. 
+
+The finding that surrounding linguistic context affect can cue the valence of a word expands prior work showing that the utterances in which caregivers embed emotion labels like “happy” or “sad” reflect the valence of the emotion label (@nencheva2024word). Although in this study we did not measure learning, this finding may have implications about how infants learn valenced words. A consistent affective context in the utterance surrounding a word can help infants form connections between similarly valenced words and extract the meaning of the word with greater ease. Work with older children (from preschool age to adolescence) shows that children learn valenced abstract words earlier (@ponari2020role), and when controlling for abstractness, children learn positively valenced words earlier (@sabater2023acquisition). If the utterances in which these words are embedded contain information about the valence of these words, this could support their acquisition, resulting in an earlier age of acquisition. However, this process requires children to know some positively valenced words to begin with. What other sources of affective information could infants use to infer the valence of words, before they build a robust valenced vocabulary? 
+	
+Although the proportion of word instances that co-ocurred with faces is small, it is non-negligible, compared to other impactful learning signals (e.g., single word-utterances; @braginsky2016uh; @braginsky2019consistency; @brent2001role; @kosie2024infant; @nencheva2024word; @swingley2018quantitative). That is, faces may be rare, but important. However, we did not find evidence that in those limited instances faces are a reliable source of information about the valence of the words they cooccur with. The lack of a significant association between the affect in the faces and sentiment suggests that these two signals do not always carry redundant information in the context of infants’ everyday language experiences. However, although rare in the cases of words and faces, moments when redundant affective information from different sources is present may be especially helpful for learning. Such multimodal redundant affective information has been found to help young infants discriminate between affective displays (@brady2024effects; @flom2007development). 
+
+There are several reasons why we may not observe an association between the affect of faces and words. One possibility is that our tools for automatically detecting happiness displays in faces are imperfect. Face processing tools are relatively newer compared to language processing tools, and are typically trained on less data (due to the much higher availability of text data). Although we did a basic check that the faces that scored highly on happiness indeed represented happy faces, face processing tools may not be as good at pulling out a fine-grained gradient score. Another possibility is that canonically happy faces are an intrinsically noisy signal of positive valence. We do not always smile when we are trying to convey positive affect. The significantly lower happiness scores for faces compared to sentiment suggest that parents are likely conveying positive affect in other ways. This may be other visual, but more dynamic ways (e.g., through larger facial movements, or posture changes). An even more important source of affective information that we did not explore in this investigation is caregivers’ vocal tone. Voices are among the first sources of affective information available to infants (@grossmann2010development; @haviland1987induced), and that the acoustics of caregiver speech have been shown to convey exaggerated positive affect (@fernald1987acoustic; @fernald1989intonation; @fernald1992human; @kitamura1998infant; @singh2002infants; @panneton2024positive; @trainor2000infant). A final possibility is that the affect in faces and words may serve a different function in early caregiver-child communication. For example, while words may carry information about the valence of what is talked about, faces may be a broader socioemotional signal that encourages engagement or bonding. 
+
+This investigation comes with several key limitations. First, as mentioned above, although automated tools allow us to measure affective information at scale, more work is needed to validate the measurements provided by these tools and understand how different tools compare to one another. Second, we focused only on displays of happiness, which do not reflect the full suite of affective cues available to infants.Third, it is unclear what temporal window of context is accessible to infants, and whether more robust information from faces may be available if we were to expand this window further. In this investigation, we chose to restrict the analysis window to the duration of the utterance in which the word was embedded. However, infants may be able to integrate longer contexts, and the duration of the context from which infants extract affective information may change depending on their age and the activity they are engaged in. Fourth, although the dataset we used is a relatively naturalistic sample of infants' at-home lives, it is still not a complete representation of infants’ experiences. The videos capture a small sliver of infants’ days. Although caregivers were instructed to capture typical everyday contexts, they may still be more likely to attempt a video recording when their child is in a neutral or positive mood, to avoid fussiness around wearing the camera helmet. Further caregivers may be especially motivated to interact with their child when being recorded. Further, the data used were not uniformly distributed across the age range, making it challenging to estimate how the availability of these cues change with age. Finally, we only focused on two of the many sources of affective information accessible to infants, and we did not differentiate between the sources of these cues. For example, the faces infants observed included faces from caregivers as well as siblings. How infants integrate affective information from these different sources is unknown. 
+
+The current investigation underscores the importance of characterizing the emotional contexts surrounding early language input in infants' natural learning environments. By examining how facial and linguistic cues align—or fail to align—with the valence of words, this investigation highlights the unique roles these cues may play in shaping infants’ word learning. Such findings emphasize the need to move beyond controlled, laboratory-based studies to capture the complexities of real-world experience. Ultimately, this research contributes to a growing body of evidence that infants’ early language experiences are deeply embedded in multimodal and affect-rich environments, which are crucial for supporting their development and learning.
+
+# Acknowledgements
+
+[omitted for blind review]
+
+# References 
+
+```{r}
+# References will be generated automatically by Pandoc and included here.
+# The following code is some latex to format the bibliography. Do not remove it.
+```
+
+\setlength{\parindent}{-0.1in} 
+\setlength{\leftskip}{0.125in}
+\noindent
