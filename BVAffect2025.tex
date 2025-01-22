@@ -10,7 +10,7 @@
 environment through egocentric video}
 
 
-\author{{\large \bf Mira L Nencheva (miran@stanford.edu)} \\ Department of Psychology, Building 420, 450 Jane Stanford Way, Stanford, CA 94305 \AND {\large \bf Michael C. Frank (mcfrank@stanford.edu)} \\ Department of Psychology, Building 420, 450 Jane Stanford Way, Stanford, CA 94305}
+\author{{\large \bf Mira L. Nencheva (miran@stanford.edu)} \\ Department of Psychology, Building 420, 450 Jane Stanford Way, Stanford, CA 94305 \AND {\large \bf Michael C. Frank (mcfrank@stanford.edu)} \\ Department of Psychology, Building 420, 450 Jane Stanford Way, Stanford, CA 94305}
 
 
 \begin{document}
@@ -99,7 +99,7 @@ and reliability of affective cues surrounding moments of word learning
 have important implications for the importance and function of these
 cues in learning.
 
-There are two big challenges in estimating the prevalence of affective
+There are two major challenges in estimating the prevalence of affective
 cues in the home environment at scale, one is the availability of
 multimodal recordings of children's early experiences, and the second is
 annotating the resulting datasets. With advances in wearable cameras,
@@ -128,20 +128,23 @@ In the current investigation, we characterized the positive affect cues
 surrounding language in children's daily lives. Using automated computer
 vision and language processing tools, we analyzed 2,054 egocentric view
 at-home videos during the first 2.5 years of life. We extracted
-utterances containing early-learned words, and target the facial and
-linguistic emotion cues surrounding each word instance. Given the prior
-focus in the literature on positive affective cues in infant-directed
-communication (Singh et al. (2002); Trainor et al. (2000)), and that
-happiness was the most reliably present canonical facial expression in
-child-view videos (LoBue et al. (2024); Ogren et al. (2024)), as a first
-step, we tagged the degree of displayed happiness in the faces and
-utterances that coocurred with each word. This enables us to capture the
-availability of these signals across age, the extent to which words
-concur with positively valenced faces and utterances. By bridging the
-gap between naturalistic observations and quantitative analysis, this
-work provides insights into the emotional contexts of early language
-experiences, helping to illuminate how affective cues support language
-learning in real-world settings.
+utterances containing early-learned words, and the facial and linguistic
+emotion cues surrounding each word instance. Because displays of
+happiness are best documented in child-directed speech (Singh et al.
+(2002); Trainor et al. (2000)), and facial cues (LoBue et al. (2024);
+Ogren et al. (2024)), as a first step, we tagged the degree of displayed
+happiness in the faces and utterances that coocurred with each word.
+This enables us to capture the availability of these signals across age,
+the extent to which words concur with positively valenced faces and
+utterances. We found that while faces were seldom visible when infants
+heard the target words in the study, they still conveyed some
+information about the word's valence. However, the expression of
+happiness in the linguistic context of the utterance in which a word was
+embedded was a more prevalent and reliable indicator of the word's
+valence. By bridging the gap between naturalistic observations and
+quantitative analysis, this work provides insights into the emotional
+contexts of early language experiences, helping to illuminate how
+affective cues support language learning in real-world settings.
 
 \section{Method}\label{method}
 
@@ -150,7 +153,7 @@ learning in real-world settings.
 We analyzed 2054 egocentric view videos (\textasciitilde377 hours of
 video) from 17 participants (12F, 5M) in the longitudinal BabyView
 corpus (B. Long et al. (2024); B. Long et al. (2024)). During each
-recording session, infants wore a helmet with an attached gopro camera,
+recording session, infants wore a helmet with an attached GoPro camera,
 which captured the infant's egocentric view of their home environment.
 Videos captured a variety of typical at-home activities. Infants' ages
 ranged between 5 and 28 months at the time of recording. Ten of the
@@ -225,12 +228,12 @@ word for each video recording.
 
 For all analyses, we computed a summary estimate for each word at the
 level of each recording. To reflect the nested structure of the data,
-all models were fit using lme4 and p-values were computed using the
-lmerTest package in R. All models included random intercepts by
-participant and by recording. We initially included random slopes by
-participant as well but the larger models did not converge. In Figures 1
-and 3, we plot the slopes for each individual participant in addition to
-the full-sample trendline.
+all models were fit using lme4 (Bates et al. (2015)) and p-values were
+computed using the lmerTest (Kuznetsova et al. (2017)) package in R. All
+models included random intercepts by participant and by recording. We
+initially included random slopes by participant as well but the larger
+models did not converge. In Figures 1 and 3, we plot the slopes for each
+individual participant in addition to the full-sample trendline.
 
 \begin{CodeChunk}
 \begin{figure*}[h]
@@ -303,8 +306,8 @@ for the utterances in which the positive word ``smile'' was embedded was
 score of 0.47 (out of 1). There were some notable exceptions, like the
 word ``gentle,'' which, although positive in valence, appeared in less
 positive contexts (e.g., ``I'm worried you need to be a bit more
-gentle''). Word valence was positively, but not significantly associated
-with facial happiness (
+gentle''). Word valence was less strongly, but still positively
+associated with facial happiness (
 \(\beta = 0.02, \textit{t}(7197.93) = 2.01, \textit{p} = 0.044\) ;
 Figure 2 - top). There was a significant interaction between happiness
 score and the modality of the context (faces vs.~sentiment), such that
@@ -339,17 +342,17 @@ between facial and linguistic context affect
 
 \section{Discussion}\label{discussion}
 
-The current investigation expands the gap in our understanding of the
+The current investigation bridges the gap in our understanding of the
 availability of affective cues in the moments when infants encounter
 early-learned words in their everyday lives. We found that faces were in
 view for only about 1 in 10 words, and an even smaller fraction of those
-faces displayed happy affect. Further, the degree of happy facial affect
-did not reliably track the valence of the target word within each
-utterance. Linguistic context affect (i.e., the utterance in which a
-word was embedded), on the other hand, conveyed more strongly positive
-affect, and was reliably related to the valence of the word. Together
-these results suggest that affective cues in faces and words may
-function differently in infants' early learning environments.
+faces displayed happy affect. Still, more positive words were surrounded
+by happier faces. Linguistic context affect (i.e., the utterance in
+which a word was embedded), however, conveyed more strongly positive
+affect, and was more reliably related to the valence of the word,
+compared to facial affect. Together these results suggest that affective
+cues in faces and words may have slightly different, but complementary
+functions in infants' early learning environments.
 
 The finding that surrounding linguistic context affect can cue the
 valence of a word expands prior work showing that the utterances in
@@ -376,33 +379,35 @@ small, it is non-negligible, compared to other impactful learning
 signals (e.g., single word-utterances; Braginsky et al. (2016);
 Braginsky et al. (2019); Brent \& Siskind (2001); Kosie \& Lew-Williams
 (2024); Nencheva et al. (2024); Swingley \& Humphrey (2018)). That is,
-faces may be rare, but important. However, we did not find evidence that
-in those limited instances faces are a reliable source of information
-about the valence of the words they cooccur with. The lack of a
-significant association between the affect in the faces and sentiment
-suggests that these two signals do not always carry redundant
-information in the context of infants' everyday language experiences.
-However, although rare in the cases of words and faces, moments when
-redundant affective information from different sources is present may be
-especially helpful for learning. Such multimodal redundant affective
-information has been found to help young infants discriminate between
-affective displays (Brady et al. (2024); Flom \& Bahrick (2007)).
+faces may be rare, but important. Further, we found evidence that in
+those limited instances faces carried information about the valence of
+the words they cooccur with. Still, this association was relatively
+weak. The lack of a significant association between the affect in the
+faces and sentiment suggests that these two signals do not always carry
+redundant information in the context of infants' everyday language
+experiences. However, although rare in the cases of words and faces,
+moments when redundant affective information from different sources is
+present may be especially helpful for learning. Such multimodal
+redundant affective information has been found to help young infants
+discriminate between affective displays (Brady et al. (2024); Flom \&
+Bahrick (2007)).
 
-There are several reasons why we may not observe an association between
-the affect of faces and words. One possibility is that our tools for
-automatically detecting happiness displays in faces are imperfect. Face
-processing tools are relatively newer compared to language processing
-tools, and are typically trained on less data (due to the much higher
-availability of text data). Although we did a basic check that the faces
-that scored highly on happiness indeed represented happy faces, face
-processing tools may not be as good at pulling out a fine-grained
-gradient score. Another possibility is that canonically happy faces are
-an intrinsically noisy signal of positive valence. We do not always
-smile when we are trying to convey positive affect. The significantly
-lower happiness scores for faces compared to sentiment suggest that
-parents are likely conveying positive affect in other ways. This may be
-other visual, but more dynamic ways (e.g., through larger facial
-movements, or posture changes). An even more important source of
+There are several reasons why we may observe a weaker association
+between the affect of faces and words (vs.~the affect of target words
+and their surrounding linguistic context). One possibility is that our
+tools for automatically detecting happiness displays in faces are
+imperfect. Face processing tools are relatively newer compared to
+language processing tools, and are typically trained on less data (due
+to the much higher availability of text data). Although we did a basic
+check that the faces that scored highly on happiness indeed represented
+happy faces, face processing tools may not be as good at pulling out a
+fine-grained gradient score. Another possibility is that canonically
+happy faces are an intrinsically noisy signal of positive valence. We do
+not always smile when we are trying to convey positive affect. The
+significantly lower happiness scores for faces compared to sentiment
+suggest that parents are likely conveying positive affect in other ways.
+This may be other visual, but more dynamic ways (e.g., through larger
+facial movements, or posture changes). An even more important source of
 affective information that we did not explore in this investigation is
 caregivers' vocal tone. Voices are among the first sources of affective
 information available to infants (Grossmann (2010); Haviland \& Lelwica
@@ -435,8 +440,8 @@ capture a small sliver of infants' days. Although caregivers were
 instructed to capture typical everyday contexts, they may still be more
 likely to attempt a video recording when their child is in a neutral or
 positive mood, to avoid fussiness around wearing the camera helmet.
-Further caregivers may be especially motivated to interact with their
-child when being recorded. Further, the data used were not uniformly
+Caregivers may also be especially motivated to interact with their child
+when being recorded. Further, the data used were not uniformly
 distributed across the age range, making it challenging to estimate how
 the availability of these cues change with age. Finally, we only focused
 on two of the many sources of affective information accessible to
@@ -474,6 +479,12 @@ crucial for supporting their development and learning.
 Andrews, M., Vigliocco, G., \& Vinson, D. (2009). Integrating
 experiential and distributional data to learn semantic representations.
 \emph{Psychological Review}, \emph{116}(3), 463.
+
+\bibitem[\citeproctext]{ref-lme4}
+Bates, D., Mächler, M., Bolker, B., \& Walker, S. (2015). Fitting linear
+mixed-effects models using {lme4}. \emph{Journal of Statistical
+Software}, \emph{67}(1), 1--48.
+\url{https://doi.org/10.18637/jss.v067.i01}
 
 \bibitem[\citeproctext]{ref-benders2013mommy}
 Benders, T. (2013). Mommy is only happy! Dutch mothers' realisation of
@@ -579,6 +590,12 @@ Kusal, S., Patil, S., Choudrie, J., Kotecha, K., Vora, D., \& Pappas, I.
 processing and future challenges with special emphasis in text-based
 emotion detection. \emph{Artificial Intelligence Review}, \emph{56}(12),
 15129--15215.
+
+\bibitem[\citeproctext]{ref-lmerTest}
+Kuznetsova, A., Brockhoff, P. B., \& Christensen, R. H. B. (2017).
+{lmerTest} package: Tests in linear mixed effects models. \emph{Journal
+of Statistical Software}, \emph{82}(13), 1--26.
+\url{https://doi.org/10.18637/jss.v082.i13}
 
 \bibitem[\citeproctext]{ref-leong2023facial}
 Leong, S. C., Tang, Y. M., Lai, C. H., \& Lee, C. (2023). Facial
