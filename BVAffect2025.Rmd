@@ -91,6 +91,7 @@ The raw video recordings and transcripts will be available on Databrary as part 
 
 ## Word instances
 In order to identify the affective cues surrounding moments of word-learning, we marked each instance of the 680 words on the MacArthur-Bates Communicative Development Inventory (MCDI; Fenson, 2007) in the video transcriptions in the BabyView dataset. All instances of the word were included, regardless of the speaker. This resulted in a total of `r distinct_words_overall` distinct word types present in the corpus, with `r formatC(total_n_instances, format = "d", big.mark = ",")` instances total (across all words), with the greatest density of data between the ages of 10 and 20 months (Figure 1a). The data for each participant contained a median of `r median_distinct_words_per_participant` distinct word types in the target set, with a median of `r round(median_instances_per_word,0)` instances per word per participant.
+
 ## Word valence
 To explore how affective cues varied depending on the valence of the word, we used the average adult ratings of word valence from Warriner et al., (2013), along with word frequency in the CHILDES database of transcribed caregiver-child interactions (MacWhinney, 2000), as reported by Braginsky et al., (2019). These data were available for 183 of the words in our dataset.
 
