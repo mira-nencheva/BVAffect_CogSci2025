@@ -26,16 +26,14 @@ knitr::opts_chunk$set(fig.width=3, fig.height=3, fig.crop = F,
 ```
 
 ```{r, libraries}
-library(png)
-library(grid)
-library(ggplot2)
+# library(png)
+# library(grid)
+library(tidyverse)
 library(xtable)
-library(dplyr)
-library(tidyr)
-library(wordbankr)
+# library(wordbankr)
 library(data.table)
-library(lubridate)
-library(stringr)
+# library(lubridate)
+# library(stringr)
 library(lmerTest)
 library(ggpubr)
 library(ggrepel)

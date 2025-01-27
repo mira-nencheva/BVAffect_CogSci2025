@@ -4,3 +4,6 @@
 .Ruserdata
 *.log
 *.tex
+renv/
+.Rprofile
+figs/
