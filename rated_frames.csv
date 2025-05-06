@@ -1,0 +1,501 @@
+frame_id,face_happiness,FaceScore,rating,face_affect_categorical
+frame_001.jpg,0.9023328,0.99912709,not smile but positive,happy
+frame_002.jpg,0.99149245,0.999436677,smile,happy
+frame_003.jpg,0.9978448,0.994455278,smile,happy
+frame_004.jpg,0.970304,0.995330453,not smile but positive,happy
+frame_005.jpg,0.9650738,0.99598217,smile,happy
+frame_006.jpg,0.98858845,0.985620499,smile,happy
+frame_007.jpg,0.993594,0.999750078,smile,happy
+frame_008.jpg,0.9430001,0.998619676,smile,happy
+frame_009.jpg,0.9236428,0.99579525,smile,happy
+frame_010.jpg,0.93022037,0.999413133,not smile but positive,happy
+frame_011.jpg,0.96150553,0.986583889,not face (obscured),happy
+frame_012.jpg,0.98866475,0.999602973,smile,happy
+frame_013.jpg,0.9194697,0.993184507,smile,happy
+frame_014.jpg,0.93372416,0.999598205,smile,happy
+frame_015.jpg,0.96730745,0.999465287,smile,happy
+frame_016.jpg,0.93858624,0.999302864,smile,happy
+frame_017.jpg,0.99115294,0.99860543,smile,happy
+frame_018.jpg,0.9362503,0.99788326,smile,happy
+frame_019.jpg,0.9453311,0.999201596,smile,happy
+frame_020.jpg,0.9743551,0.998904347,smile,happy
+frame_021.jpg,0.94583184,0.999533653,smile,happy
+frame_022.jpg,0.94149995,0.998232961,smile,happy
+frame_023.jpg,0.995943,0.999733984,smile,happy
+frame_024.jpg,0.9680053,0.975439966,smile,happy
+frame_025.jpg,0.908407,0.999809682,neutral,happy
+frame_026.jpg,0.92873544,0.998365223,neutral,happy
+frame_027.jpg,0.9348816,0.99906379,smile,happy
+frame_028.jpg,0.9769694,0.999728858,smile,happy
+frame_029.jpg,0.92343324,0.994139791,smile,happy
+frame_030.jpg,0.9285237,0.989469528,smile,happy
+frame_031.jpg,0.9764415,0.999209642,neutral,happy
+frame_032.jpg,0.9848616,0.98991549,smile,happy
+frame_033.jpg,0.99635893,0.99948597,smile,happy
+frame_034.jpg,0.9750186,0.995903909,smile,happy
+frame_035.jpg,0.9708464,0.971860945,neutral,happy
+frame_036.jpg,0.970979,0.999530315,smile,happy
+frame_037.jpg,0.9931178,0.927583635,smile,happy
+frame_038.jpg,0.9985967,0.999217391,smile,happy
+frame_039.jpg,0.9889403,0.998339534,smile,happy
+frame_040.jpg,0.9434059,0.998964667,smile,happy
+frame_041.jpg,0.94084954,0.999837399,smile,happy
+frame_042.jpg,0.99818367,0.999818385,smile,happy
+frame_043.jpg,0.999624,0.997420073,smile,happy
+frame_044.jpg,0.9564356,0.998669028,smile,happy
+frame_045.jpg,0.9979837,0.999188006,smile,happy
+frame_046.jpg,0.94289315,0.992464304,not smile but positive,happy
+frame_047.jpg,0.97313076,0.998639047,smile,happy
+frame_048.jpg,0.9848567,0.9996562,smile,happy
+frame_049.jpg,0.9628125,0.999484062,smile,happy
+frame_050.jpg,0.9001196,0.999503136,smile,happy
+frame_051.jpg,0.99787354,0.999685884,smile,happy
+frame_052.jpg,0.9849562,0.999182045,smile,happy
+frame_053.jpg,0.9738182,0.999698758,smile,happy
+frame_054.jpg,0.99650913,0.985300362,smile,happy
+frame_055.jpg,0.983878,0.999386549,smile,happy
+frame_056.jpg,0.92822564,0.999143124,smile,happy
+frame_057.jpg,0.99417454,0.999399781,smile,happy
+frame_058.jpg,0.931551,0.992226481,smile,happy
+frame_059.jpg,0.99282444,0.997774303,smile,happy
+frame_060.jpg,0.95845664,0.999817312,smile,happy
+frame_061.jpg,0.9678605,0.999720633,smile,happy
+frame_062.jpg,0.9409644,0.99946934,smile,happy
+frame_063.jpg,0.9940773,0.997885764,smile,happy
+frame_064.jpg,0.9962298,0.998345733,smile,happy
+frame_065.jpg,0.93330634,0.997167528,smile,happy
+frame_066.jpg,0.90712816,0.989493489,smile,happy
+frame_067.jpg,0.98972136,0.999309659,smile,happy
+frame_068.jpg,0.9035408,0.996036828,smile,happy
+frame_069.jpg,0.9694381,0.998632014,smile,happy
+frame_070.jpg,0.9430095,0.99399066,smile,happy
+frame_071.jpg,0.9533798,0.998834074,smile,happy
+frame_072.jpg,0.96763915,0.99669987,smile,happy
+frame_073.jpg,0.9671475,0.999733031,smile,happy
+frame_074.jpg,0.99325484,0.99960357,smile,happy
+frame_075.jpg,0.9574156,0.999487281,smile,happy
+frame_076.jpg,0.93469507,0.997247159,smile,happy
+frame_077.jpg,0.9515174,0.998097718,smile,happy
+frame_078.jpg,0.9881209,0.999054849,smile,happy
+frame_079.jpg,0.92453575,0.998993814,smile,happy
+frame_080.jpg,0.95826745,0.999205053,neutral,happy
+frame_081.jpg,0.98646855,0.990913868,smile,happy
+frame_082.jpg,0.9731609,0.999693751,smile,happy
+frame_083.jpg,0.9904676,0.998778641,neutral,happy
+frame_084.jpg,0.9390689,0.999272883,smile,happy
+frame_085.jpg,0.93887484,0.995698571,smile,happy
+frame_086.jpg,0.9992415,0.999036551,not smile but positive,happy
+frame_087.jpg,0.9242031,0.997849107,neutral,happy
+frame_088.jpg,0.99806374,0.999236226,smile,happy
+frame_089.jpg,0.9753298,0.999172509,not smile but positive,happy
+frame_090.jpg,0.9332569,0.986279249,smile,happy
+frame_091.jpg,0.97627425,0.998201251,smile,happy
+frame_092.jpg,0.9996203,0.999830723,smile,happy
+frame_093.jpg,0.9969939,0.994666457,smile,happy
+frame_094.jpg,0.92234194,0.990194023,smile,happy
+frame_095.jpg,0.9118783,0.998153865,smile,happy
+frame_096.jpg,0.98783827,0.998092115,smile,happy
+frame_097.jpg,0.9787869,0.997262478,smile,happy
+frame_098.jpg,0.9582936,0.999031782,smile,happy
+frame_099.jpg,0.95013684,0.999343455,smile,happy
+frame_100.jpg,0.9858416,0.999426961,smile,happy
+frame_101.jpg,0.95357,0.997673094,not smile but positive,happy
+frame_102.jpg,0.9493443,0.998937547,smile,happy
+frame_103.jpg,0.90145725,0.99704653,smile,happy
+frame_104.jpg,0.9239779,0.993380547,smile,happy
+frame_105.jpg,0.9471333,0.999244809,not smile but positive,happy
+frame_106.jpg,0.92878234,0.999020934,smile,happy
+frame_107.jpg,0.9906787,0.999142408,smile,happy
+frame_108.jpg,0.94937617,0.999258578,smile,happy
+frame_109.jpg,0.91986877,0.999642491,smile,happy
+frame_110.jpg,0.98887163,0.999653101,smile,happy
+frame_111.jpg,0.9120859,0.998920321,smile,happy
+frame_112.jpg,0.9406143,0.997914016,smile,happy
+frame_113.jpg,0.91269875,0.994255841,smile,happy
+frame_114.jpg,0.9231604,0.998509467,neutral,happy
+frame_115.jpg,0.9979249,0.9983688,smile,happy
+frame_116.jpg,0.9211038,0.99848783,smile,happy
+frame_117.jpg,0.9751976,0.995674551,smile,happy
+frame_118.jpg,0.99792576,0.999144673,smile,happy
+frame_119.jpg,0.9844797,0.999145269,smile,happy
+frame_120.jpg,0.98589766,0.999820411,smile,happy
+frame_121.jpg,0.97380346,0.999697804,smile,happy
+frame_122.jpg,0.9889747,0.940905571,smile,happy
+frame_123.jpg,0.961055,0.999663711,smile,happy
+frame_124.jpg,0.96790665,0.999299049,smile,happy
+frame_125.jpg,0.9745582,0.99978596,smile,happy
+frame_126.jpg,0.9399067,0.998456478,neutral,happy
+frame_127.jpg,0.9668455,0.997290671,smile,happy
+frame_128.jpg,0.99172276,0.99872905,smile,happy
+frame_129.jpg,0.93701303,0.996373832,neutral,happy
+frame_130.jpg,0.9677023,0.999747694,smile,happy
+frame_131.jpg,0.967119,0.963750541,smile,happy
+frame_132.jpg,0.92490447,0.997331858,neutral,happy
+frame_133.jpg,0.9671631,0.999769628,smile,happy
+frame_134.jpg,0.9900024,0.999874473,smile,happy
+frame_135.jpg,0.99282444,0.998792231,smile,happy
+frame_136.jpg,0.9821571,0.998952866,smile,happy
+frame_137.jpg,0.9927487,0.99972719,smile,happy
+frame_138.jpg,0.989962,0.995859087,smile,happy
+frame_139.jpg,0.99956995,0.996587515,smile,happy
+frame_140.jpg,0.90874225,0.997241974,smile,happy
+frame_141.jpg,0.9586482,0.995243609,smile,happy
+frame_142.jpg,0.9211072,0.999642253,smile,happy
+frame_143.jpg,0.96162117,0.998734653,smile,happy
+frame_144.jpg,0.977974,0.97250551,smile,happy
+frame_145.jpg,0.96998984,0.995256722,smile,happy
+frame_146.jpg,0.9378168,0.999448717,smile,happy
+frame_147.jpg,0.9030128,0.998053789,smile,happy
+frame_148.jpg,0.9411601,0.998112798,smile,happy
+frame_149.jpg,0.9919966,0.996564686,smile,happy
+frame_150.jpg,0.91242033,0.991919279,neutral,happy
+frame_151.jpg,0.99311984,0.999780715,smile,happy
+frame_152.jpg,0.95916766,0.998833358,neutral,happy
+frame_153.jpg,0.9736413,0.999631166,smile,happy
+frame_154.jpg,0.9703926,0.990817189,smile,happy
+frame_155.jpg,0.94778347,0.954389215,neutral,happy
+frame_156.jpg,0.9420259,0.970506728,not face (obscured),happy
+frame_157.jpg,0.90764886,0.998604357,smile,happy
+frame_158.jpg,0.9351764,0.998803496,smile,happy
+frame_159.jpg,0.9709297,0.999076605,smile,happy
+frame_160.jpg,0.9948435,0.999488592,smile,happy
+frame_161.jpg,0.97887164,0.922089815,not face (not human),happy
+frame_162.jpg,0.97943056,0.999582827,smile,happy
+frame_163.jpg,0.9768043,0.992423415,smile,happy
+frame_164.jpg,0.9801359,0.999224067,smile,happy
+frame_165.jpg,0.9797229,0.99800998,smile,happy
+frame_166.jpg,0.96850735,0.997170746,smile,happy
+frame_167.jpg,0.963172,0.993108034,smile,happy
+frame_168.jpg,0.98241097,0.999772608,smile,happy
+frame_169.jpg,0.95199287,0.988594055,smile,happy
+frame_170.jpg,0.99298865,0.998683274,not smile but positive,happy
+frame_171.jpg,0.9184296,0.992838919,smile,happy
+frame_172.jpg,0.9986712,0.999299407,smile,happy
+frame_173.jpg,0.90318775,0.983402133,smile,happy
+frame_174.jpg,0.9397701,0.9988029,smile,happy
+frame_175.jpg,0.9918223,0.995900691,smile,happy
+frame_176.jpg,0.964519,0.999026656,smile,happy
+frame_177.jpg,0.9229875,0.949101925,smile,happy
+frame_178.jpg,0.9274036,0.991923273,smile,happy
+frame_179.jpg,0.91024476,0.994028211,smile,happy
+frame_180.jpg,0.9914738,0.998454928,smile,happy
+frame_181.jpg,0.96540904,0.966384292,smile,happy
+frame_182.jpg,0.9619089,0.999170661,smile,happy
+frame_183.jpg,0.9502772,0.967552423,smile,happy
+frame_184.jpg,0.9677594,0.992825866,neutral,happy
+frame_185.jpg,0.93349874,0.979572475,smile,happy
+frame_186.jpg,0.92808574,0.999793112,smile,happy
+frame_187.jpg,0.9821571,0.998952866,smile,happy
+frame_188.jpg,0.957997,0.998401701,smile,happy
+frame_189.jpg,0.9273508,0.956416667,smile,happy
+frame_190.jpg,0.95998144,0.997023284,smile,happy
+frame_191.jpg,0.93008244,0.998799086,smile,happy
+frame_192.jpg,0.9563216,0.999620318,smile,happy
+frame_193.jpg,0.9615986,0.996584654,not smile but positive,happy
+frame_194.jpg,0.9790165,0.999620676,smile,happy
+frame_195.jpg,0.9770082,0.987999201,smile,happy
+frame_196.jpg,0.94097894,0.97243166,smile,happy
+frame_197.jpg,0.9882803,0.999683499,smile,happy
+frame_198.jpg,0.96275264,0.998166382,smile,happy
+frame_199.jpg,0.9794922,0.998910666,smile,happy
+frame_200.jpg,0.9307507,0.947749019,not face,happy
+frame_201.jpg,0.9961706,0.999746382,smile,happy
+frame_202.jpg,0.9977336,0.998853564,smile,happy
+frame_203.jpg,0.91924703,0.999655843,smile,happy
+frame_204.jpg,0.9840806,0.992883086,smile,happy
+frame_205.jpg,0.9544645,0.988434434,smile,happy
+frame_206.jpg,0.9733873,0.997891247,smile,happy
+frame_207.jpg,0.94234794,0.999577224,smile,happy
+frame_208.jpg,0.9803695,0.999452651,smile,happy
+frame_209.jpg,0.99445724,0.992717385,smile,happy
+frame_210.jpg,0.99797577,0.995731294,smile,happy
+frame_211.jpg,0.910092,0.998559892,smile,happy
+frame_212.jpg,0.9218268,0.989333451,neutral,happy
+frame_213.jpg,0.9119675,0.974132299,neutral,happy
+frame_214.jpg,0.9846437,0.999680161,smile,happy
+frame_215.jpg,0.996795,0.999747336,smile,happy
+frame_216.jpg,0.9536285,0.983169198,neutral,happy
+frame_217.jpg,0.9855365,0.999230146,smile,happy
+frame_218.jpg,0.9157629,0.999592125,smile,happy
+frame_219.jpg,0.93183637,0.999659419,smile,happy
+frame_220.jpg,0.9535616,0.99943918,smile,happy
+frame_221.jpg,0.9389257,0.999190152,smile,happy
+frame_222.jpg,0.9150602,0.95301491,neutral,happy
+frame_223.jpg,0.9768416,0.978526115,smile,happy
+frame_224.jpg,0.96907824,0.998609185,smile,happy
+frame_225.jpg,0.98314583,0.999707878,smile,happy
+frame_226.jpg,0.9797483,0.998698354,smile,happy
+frame_227.jpg,0.90631455,0.995434821,neutral,happy
+frame_228.jpg,0.9956228,0.999442637,smile,happy
+frame_229.jpg,0.99099874,0.998928726,smile,happy
+frame_230.jpg,0.970753,0.996385098,smile,happy
+frame_231.jpg,0.9333208,0.998788893,smile,happy
+frame_232.jpg,0.9977666,0.99688822,smile,happy
+frame_233.jpg,0.9790315,0.913805664,smile,happy
+frame_234.jpg,0.9803908,0.999131858,smile,happy
+frame_235.jpg,0.93400896,0.997870922,smile,happy
+frame_236.jpg,0.96337265,0.99776125,smile,happy
+frame_237.jpg,0.9804761,0.993802071,smile,happy
+frame_238.jpg,0.9299406,0.99955827,smile,happy
+frame_239.jpg,0.92683107,0.996707797,not smile but positive,happy
+frame_240.jpg,0.9513739,0.997133374,smile,happy
+frame_241.jpg,0.97668105,0.997617543,smile,happy
+frame_242.jpg,0.9185843,0.999695301,smile,happy
+frame_243.jpg,0.91504925,0.993845522,smile,happy
+frame_244.jpg,0.9017753,0.910799801,not face (obscured and not human),happy
+frame_245.jpg,0.96309847,0.997228205,smile,happy
+frame_246.jpg,0.91191417,0.991970778,neutral,happy
+frame_247.jpg,0.9294297,0.988238454,smile,happy
+frame_248.jpg,0.93026286,0.999159098,neutral,happy
+frame_249.jpg,0.96730745,0.999465287,smile,happy
+frame_250.jpg,0.9974987,0.996662796,smile,happy
+frame_251.jpg,0.115057744,0.96803391,neutral,other
+frame_252.jpg,0.21364444,0.97010529,neutral,other
+frame_253.jpg,0.009085141,0.99888283,neutral,other
+frame_254.jpg,0.00029456,0.999570787,neutral,other
+frame_255.jpg,0.05553519,0.923284233,not face (not human),other
+frame_256.jpg,0.22380655,0.996117592,neutral,other
+frame_257.jpg,0.006447091,0.924078405,not face (obscured),other
+frame_258.jpg,0.013491774,0.932095528,neutral,other
+frame_259.jpg,0.004187913,0.997760773,neutral,other
+frame_260.jpg,0.000778514,0.996391475,neutral,other
+frame_261.jpg,0.002958172,0.996778667,neutral,other
+frame_262.jpg,0.001340444,0.906079948,neutral,other
+frame_263.jpg,0.1369036,0.931257546,not face (not human),other
+frame_264.jpg,0.000496205,0.998058379,neutral,other
+frame_265.jpg,0.049503542,0.998177767,neutral,other
+frame_266.jpg,0.037294164,0.994780838,neutral,other
+frame_267.jpg,0.000812241,0.998833358,neutral,other
+frame_268.jpg,0.021903375,0.926638067,not face,other
+frame_269.jpg,0.021178098,0.998819888,neutral,other
+frame_270.jpg,0.02343544,0.999427974,smile,other
+frame_271.jpg,0.08695366,0.996693611,neutral,other
+frame_272.jpg,0.07252337,0.977928579,not face (obscured),other
+frame_273.jpg,0.05133352,0.988572001,neutral,other
+frame_274.jpg,0.15209311,0.96415174,not face (not human),other
+frame_275.jpg,0.001995259,0.999870181,neutral,other
+frame_276.jpg,0.10855754,0.957912803,neutral,other
+frame_277.jpg,0.23056598,0.931758106,not face (obscured),other
+frame_278.jpg,0.021087877,0.999181569,neutral,other
+frame_279.jpg,0.029189281,0.994277298,neutral,other
+frame_280.jpg,0.09087937,0.996368289,neutral,other
+frame_281.jpg,0.022118004,0.99962008,neutral,other
+frame_282.jpg,0.14900035,0.974291086,neutral,other
+frame_283.jpg,0.000267059,0.993763626,neutral,other
+frame_284.jpg,0.002372816,0.994115353,neutral,other
+frame_285.jpg,0.02753984,0.999222755,neutral,other
+frame_286.jpg,0.083035186,0.951701462,neutral,other
+frame_287.jpg,0.18608187,0.936899364,neutral,other
+frame_288.jpg,0.11786349,0.999083281,neutral,other
+frame_289.jpg,0.007424173,0.996877909,neutral,other
+frame_290.jpg,0.014071554,0.998972774,neutral,other
+frame_291.jpg,0.005354308,0.997759938,neutral,other
+frame_292.jpg,0.17469141,0.962901175,not face,other
+frame_293.jpg,0.026884733,0.991538942,neutral,other
+frame_294.jpg,0.050971374,0.967253566,neutral,other
+frame_295.jpg,0.12583339,0.919269264,neutral,other
+frame_296.jpg,0.001452613,0.99588722,neutral,other
+frame_297.jpg,0.007485322,0.932483673,not face (obscured),other
+frame_298.jpg,0.001735466,0.995158374,neutral,other
+frame_299.jpg,0.06767411,0.994811654,neutral,other
+frame_300.jpg,0.002078869,0.977838337,not face (obscured),other
+frame_301.jpg,0.0723285,0.999504328,not smile but positive,other
+frame_302.jpg,0.12927602,0.967996776,neutral,other
+frame_303.jpg,0.000676277,0.958467126,neutral,other
+frame_304.jpg,0.033492394,0.999292612,neutral,other
+frame_305.jpg,0.000234911,0.999362171,neutral,other
+frame_306.jpg,0.034766894,0.998295605,neutral,other
+frame_307.jpg,0.001289488,0.968639314,neutral,other
+frame_308.jpg,0.16756405,0.900106072,not face,other
+frame_309.jpg,0.001498163,0.97037518,neutral,other
+frame_310.jpg,0.004214442,0.954950929,smile,other
+frame_311.jpg,0.001120081,0.99023366,neutral,other
+frame_312.jpg,0.033467934,0.992830217,negative,other
+frame_313.jpg,0.048003923,0.92471242,not face (obscured),other
+frame_314.jpg,0.00688836,0.966036201,not face (obscured),other
+frame_315.jpg,0.033101875,0.999546707,neutral,other
+frame_316.jpg,0.002577329,0.93225503,not face,other
+frame_317.jpg,0.022647182,0.968219817,neutral,other
+frame_318.jpg,0.002098454,0.999818981,neutral,other
+frame_319.jpg,0.10630699,0.978957891,neutral,other
+frame_320.jpg,0.05707656,0.994860172,neutral,other
+frame_321.jpg,0.013270889,0.999443114,neutral,other
+frame_322.jpg,0.020834848,0.924687743,not face,other
+frame_323.jpg,0.006900506,0.999098301,neutral,other
+frame_324.jpg,0.1283138,0.903179288,not face,other
+frame_325.jpg,0.004951872,0.987590432,neutral,other
+frame_326.jpg,0.001431988,0.9977144,neutral,other
+frame_327.jpg,0.002963567,0.999315262,neutral,other
+frame_328.jpg,0.004787023,0.999317288,negative,other
+frame_329.jpg,0.025497468,0.90762943,not face,other
+frame_330.jpg,0.035897784,0.940712273,not face,other
+frame_331.jpg,0.047711644,0.90096426,negative,other
+frame_332.jpg,0.02854796,0.987236738,neutral,other
+frame_333.jpg,0.08045765,0.992290795,neutral,other
+frame_334.jpg,0.1353563,0.9166466,neutral,other
+frame_335.jpg,0.033991005,0.940713882,neutral,other
+frame_336.jpg,0.209927,0.946206927,not face,other
+frame_337.jpg,0.02431015,0.998019934,neutral,other
+frame_338.jpg,0.003856062,0.986242294,neutral,other
+frame_339.jpg,0.24491182,0.998548448,neutral,other
+frame_340.jpg,0.12785766,0.973591208,neutral,other
+frame_341.jpg,0.00127491,0.983232319,not face,other
+frame_342.jpg,0.0803699,0.923185289,not face (obscured),other
+frame_343.jpg,0.007677225,0.983675778,not face,other
+frame_344.jpg,0.01756534,0.993918777,neutral,other
+frame_345.jpg,0.024544038,0.994339406,neutral,other
+frame_346.jpg,0.013696676,0.91198957,not face,other
+frame_347.jpg,0.13551018,0.99863106,neutral,other
+frame_348.jpg,0.001166205,0.999551237,neutral,other
+frame_349.jpg,0.029656438,0.998696983,neutral,other
+frame_350.jpg,0.0281268,0.999220967,neutral,other
+frame_351.jpg,0.1632913,0.996551275,neutral,other
+frame_352.jpg,0.00212359,0.999608576,neutral,other
+frame_353.jpg,0.00661729,0.975173235,neutral,other
+frame_354.jpg,0.10059574,0.968029439,neutral,other
+frame_355.jpg,0.004155363,0.99794966,neutral,other
+frame_356.jpg,0.011333532,0.999016285,neutral,other
+frame_357.jpg,0.017956676,0.999534845,neutral,other
+frame_358.jpg,0.03608624,0.986545265,neutral,other
+frame_359.jpg,0.08072123,0.980748296,neutral,other
+frame_360.jpg,0.09699937,0.996658683,neutral,other
+frame_361.jpg,0.03211291,0.90575546,neutral,other
+frame_362.jpg,0.005095875,0.998587728,neutral,other
+frame_363.jpg,0.068641834,0.967504025,not face,other
+frame_364.jpg,0.018118653,0.999549329,neutral,other
+frame_365.jpg,0.02094467,0.94806844,neutral,other
+frame_366.jpg,0.09796346,0.999556363,neutral,other
+frame_367.jpg,0.12468237,0.903138638,neutral,other
+frame_368.jpg,0.13737842,0.996638656,neutral,other
+frame_369.jpg,0.18049805,0.996516585,neutral,other
+frame_370.jpg,0.01085825,0.999352872,neutral,other
+frame_371.jpg,0.07545894,0.995376945,neutral,other
+frame_372.jpg,0.002779063,0.993891954,neutral,other
+frame_373.jpg,0.056512736,0.932496607,not face (obscured),other
+frame_374.jpg,0.001731103,0.998652577,neutral,other
+frame_375.jpg,0.017825916,0.999803126,not smile but positive,other
+frame_376.jpg,0.000102193,0.961435676,not face,other
+frame_377.jpg,0.01817692,0.997318566,neutral,other
+frame_378.jpg,0.013026362,0.924487054,not face,other
+frame_379.jpg,0.009030242,0.983085573,neutral,other
+frame_380.jpg,0.09549286,0.964420974,neutral,other
+frame_381.jpg,0.000592555,0.997421861,not smile but positive,other
+frame_382.jpg,0.022521382,0.998315692,NA,other
+frame_383.jpg,0.030030925,0.933443844,neutral,other
+frame_384.jpg,0.0640714,0.992587984,neutral,other
+frame_385.jpg,0.014497327,0.903027773,not face,other
+frame_386.jpg,0.05867357,0.96070838,neutral,other
+frame_387.jpg,0.052939404,0.925854445,neutral,other
+frame_388.jpg,0.011098574,0.910827279,neutral,other
+frame_389.jpg,0.005288757,0.998391211,neutral,other
+frame_390.jpg,0.004252369,0.995658159,neutral,other
+frame_391.jpg,0.041604232,0.963296354,neutral,other
+frame_392.jpg,0.23537445,0.980827868,neutral,other
+frame_393.jpg,0.06691357,0.983946204,neutral,other
+frame_394.jpg,0.014483282,0.933054328,not face,other
+frame_395.jpg,0.011299971,0.990205348,neutral,other
+frame_396.jpg,0.1287522,0.998655796,neutral,other
+frame_397.jpg,9.00E-05,0.989548445,neutral,other
+frame_398.jpg,0.18567662,0.999063075,neutral,other
+frame_399.jpg,0.039938353,0.980994463,neutral,other
+frame_400.jpg,0.10317666,0.990523636,neutral,other
+frame_401.jpg,0.009580712,0.998434484,neutral,other
+frame_402.jpg,0.029569114,0.999783695,neutral,other
+frame_403.jpg,0.041404653,0.999330878,neutral,other
+frame_404.jpg,0.000171665,0.999673724,neutral,other
+frame_405.jpg,0.026514921,0.921920598,neutral,other
+frame_406.jpg,0.004836833,0.999245048,neutral,other
+frame_407.jpg,0.2382483,0.999555409,neutral,other
+frame_408.jpg,0.03924581,0.998361409,neutral,other
+frame_409.jpg,0.006040853,0.996341407,not face,other
+frame_410.jpg,0.08761922,0.998565376,neutral,other
+frame_411.jpg,0.06519892,0.982611656,neutral,other
+frame_412.jpg,0.18269101,0.987816751,neutral,other
+frame_413.jpg,0.028640127,0.92213881,neutral,other
+frame_414.jpg,0.024341501,0.936946154,not face,other
+frame_415.jpg,0.015451316,0.998419166,neutral,other
+frame_416.jpg,0.012672356,0.968671739,not face,other
+frame_417.jpg,0.020304045,0.960035861,not face,other
+frame_418.jpg,0.023086283,0.997845769,neutral,other
+frame_419.jpg,0.2325743,0.999886632,neutral,other
+frame_420.jpg,0.013833426,0.926860273,neutral,other
+frame_421.jpg,0.000597328,0.999473155,neutral,other
+frame_422.jpg,0.068930835,0.986374736,neutral,other
+frame_423.jpg,0.03964898,0.975524366,neutral,other
+frame_424.jpg,0.014005654,0.990670323,neutral,other
+frame_425.jpg,0.02990754,0.994408548,neutral,other
+frame_426.jpg,0.101517044,0.99559021,neutral,other
+frame_427.jpg,0.0434263,0.91087842,not face (obscured),other
+frame_428.jpg,0.12785766,0.973591208,neutral,other
+frame_429.jpg,0.21663766,0.977708399,neutral,other
+frame_430.jpg,0.015419995,0.912655592,not face (obscured),other
+frame_431.jpg,0.000621926,0.99689424,neutral,other
+frame_432.jpg,0.049739126,0.985693932,neutral,other
+frame_433.jpg,0.028434955,0.981824577,neutral,other
+frame_434.jpg,0.008279706,0.986514747,neutral,other
+frame_435.jpg,0.048071504,0.973484695,not face,other
+frame_436.jpg,0.043387547,0.9166978,not face,other
+frame_437.jpg,0.11492805,0.991559923,neutral,other
+frame_438.jpg,0.000649493,0.997053623,neutral,other
+frame_439.jpg,0.003082597,0.92338407,neutral,other
+frame_440.jpg,0.002803889,0.99014473,neutral,other
+frame_441.jpg,0.001325874,0.99714607,neutral,other
+frame_442.jpg,0.000398926,0.999067605,neutral,other
+frame_443.jpg,0.0423623,0.967378795,not face,other
+frame_444.jpg,0.19842164,0.999524474,neutral,other
+frame_445.jpg,0.06848875,0.964287281,not face,other
+frame_446.jpg,0.12728226,0.954416811,neutral,other
+frame_447.jpg,0.000542198,0.999706447,neutral,other
+frame_448.jpg,0.004588144,0.954184175,not face,other
+frame_449.jpg,0.05270726,0.995372713,neutral,other
+frame_450.jpg,0.032558843,0.995550394,neutral,other
+frame_451.jpg,0.071674995,0.963356078,not smile but positive,other
+frame_452.jpg,0.14167446,0.999278843,smile,other
+frame_453.jpg,0.062954694,0.922192633,not face,other
+frame_454.jpg,0.015342559,0.976888955,neutral,other
+frame_455.jpg,0.07142697,0.911857426,neutral,other
+frame_456.jpg,0.04509444,0.998735368,neutral,other
+frame_457.jpg,0.023640785,0.953894436,neutral,other
+frame_458.jpg,0.010087124,0.998775899,neutral,other
+frame_459.jpg,0.061786514,0.997817159,not face (not human),other
+frame_460.jpg,0.05007883,0.929965854,not face (not human),other
+frame_461.jpg,0.0907688,0.930317104,not face (not human),other
+frame_462.jpg,0.021550056,0.955114365,not face,other
+frame_463.jpg,0.013598715,0.903908193,not face,other
+frame_464.jpg,0.010948044,0.986993551,neutral,other
+frame_465.jpg,0.1339195,0.985031247,not face (not human),other
+frame_466.jpg,0.000647867,0.998493314,neutral,other
+frame_467.jpg,0.21799012,0.988488734,neutral,other
+frame_468.jpg,0.03212734,0.996500969,neutral,other
+frame_469.jpg,0.2212428,0.994772851,neutral,other
+frame_470.jpg,0.05030348,0.971503139,not face,other
+frame_471.jpg,0.002765202,0.943409741,neutral,other
+frame_472.jpg,0.18605025,0.999432385,neutral,other
+frame_473.jpg,0.008398884,0.901418507,not face (obscured),other
+frame_474.jpg,0.033181164,0.965842426,neutral,other
+frame_475.jpg,0.04077898,0.996851027,neutral,other
+frame_476.jpg,0.016352227,0.979796469,not face (not human),other
+frame_477.jpg,0.16864793,0.997961879,neutral,other
+frame_478.jpg,0.037825197,0.940329909,neutral,other
+frame_479.jpg,0.055897772,0.960990727,not face (not human),other
+frame_480.jpg,0.019884462,0.996471643,neutral,other
+frame_481.jpg,0.031709153,0.998675406,neutral,other
+frame_482.jpg,0.005739858,0.976056099,neutral,other
+frame_483.jpg,0.031594183,0.921483219,not face,other
+frame_484.jpg,0.000529405,0.988641322,neutral,other
+frame_485.jpg,0.013922207,0.999167442,neutral,other
+frame_486.jpg,0.00173508,0.998747587,neutral,other
+frame_487.jpg,0.001833631,0.998789728,neutral,other
+frame_488.jpg,0.004070322,0.948676586,not face,other
+frame_489.jpg,0.17421721,0.983791828,not smile but positive,other
+frame_490.jpg,0.000824362,0.999709666,neutral,other
+frame_491.jpg,0.20235208,0.953483641,not smile but positive,other
+frame_492.jpg,0.22420046,0.999488235,neutral,other
+frame_493.jpg,0.048066545,0.998335421,neutral,other
+frame_494.jpg,0.003453531,0.984053373,not face (obscured),other
+frame_495.jpg,0.07378443,0.99801898,neutral,other
+frame_496.jpg,0.06229305,0.998602211,neutral,other
+frame_497.jpg,0.17542386,0.996047437,neutral,other
+frame_498.jpg,0.025479758,0.921765208,neutral,other
+frame_499.jpg,0.20949642,0.913200259,not face,other
+frame_500.jpg,0.01877981,0.903558254,not face (obscured),other

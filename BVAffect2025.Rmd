@@ -15,6 +15,9 @@ keywords: >
     Head-mounted cameras; Early language learning; Affective cues
     
 output: cogsci2024::cogsci_paper
+header-includes: \cogscifinalcopy
+
+
 #header-includes: - \cogscifinalcopy - \usepackage{float} - \renewcommand{\textfraction}{0.00} - \renewcommand{\topfraction}{1} - \renewcommand{\bottomfraction}{1} - \renewcommand{\floatpagefraction}{1} - \setcounter{topnumber}{5} - \setcounter{bottomnumber}{5} - \setcounter{totalnumber}{6}  
 ---
 
@@ -109,6 +112,27 @@ summary_by_word_participant <- merged_data %>%
   )
 
 pct_word_instances_with_face = mean(summary_by_word_participant$face_proportion)*100
+
+
+rated_frames = read.csv('rated_frames.csv')
+n_rated_faces = nrow(rated_frames)
+n_no_face = nrow(rated_frames %>% filter(grepl('not face',rating)))
+n_obscured = nrow(rated_frames %>% filter(grepl('obscured',rating)))
+n_not_human = nrow(rated_frames %>% filter(grepl('not human',rating)))
+
+n_rated_happy_faces = nrow(rated_frames %>% filter(grepl('happy',face_affect_categorical)))
+n_rated_other_faces = nrow(rated_frames %>% filter(grepl('other',face_affect_categorical)))
+
+n_correct_happy_faces = nrow(rated_frames %>% 
+                               filter(grepl('happy',face_affect_categorical)&
+                                      !rating %in%c('neutral','negative','not face') 
+                                      ))
+
+n_other_faces_rated_as_happy =nrow(rated_frames %>% 
+                               filter(grepl('other',face_affect_categorical)&
+                                      !rating %in%c('neutral','negative','not face') 
+                                      ))
+
 
 ```
 
@@ -234,6 +258,8 @@ The linguistic affective context for each word was calculated by averaging the s
 
 For each word instance, we analyzed the video frame coocurring with the utterance containing the word. Each frame was processed using PyFeat [@cheong2023py], an open-source facial analysis package, which uses a pre-trained emotion categorization algorithm. This algorithm assigns a face score value between 0 and 1, indicating its certainty in identifying a face. For the analyses in this paper, we marked frames with a face score of 0.9 and above as containing a face. If multiple faces were present, we selected the face that occupied the largest area in the frame and that received the highest face score. Each detected face was assigned a score between 0 and 1 based on how confidently the facial expression could be categorized as happiness. As with linguistic context affect, we computed an average facial happiness score for each word for each video recording. 
 
+Further, we manually coded `r n_rated_faces` face frames, selected, such that there were `r n_rated_happy_faces` faces with a facial happiness score greater than 0.9, and `r n_rated_other_faces` with a facial happiness score less than 0.25. Out of the rated frames,`r round((n_no_face*100/n_rated_faces),1)`% did not contain a visible face. For example, `r round((n_not_human*100/n_no_face),1)`% of these contained a face that was not a human face (e.g., an animal, toy or a cartoon), and in `r round((n_obscured*100/n_no_face),1)`% of cases, the face was obscured (e.g., only the back of a person's head was visible). Out of the frames with a high facial happiness score, `r round((n_correct_happy_faces*100/n_rated_happy_faces),1)`% were manually coded as displaying positive affect (which included, but was not limited to, smiling), whereas, out of the frames with a low facial happiness score, `r round((n_other_faces_rated_as_happy*100/n_rated_other_faces),1)`% were manually coded as displaying positive affect.     
+
 ```{r figure2, fig.env = "figure*", fig.pos = "h", fig.width=7, fig.height=5, fig.align = "center", set.cap.width=T, num.cols.cap=2, fig.cap = "Association between word valence and affective context. The average happiness score (between 0 and 1) for each word of the faces it coocurred with (top panel), and the utterances in which the word was embedded (omitting the word itself; bottom panel). A subset of word labels are visible and colored based on the valence of the word, coded on a scale from 1 (very negative) to 9 (very positive). Note that the relatively lower face happiness scores result from the lower frequency of faces detected as cannonically happy, rather than a smaller range of happiness scores."}
 
 averages_by_word <- merged_data %>%
@@ -334,15 +360,15 @@ merged_data = data.table(merged_data)
 
 
 model_face_proportion_age <- lmer(scale(face_proportion) ~ scale(age_in_months) + 
-                                    (1|participant), 
+                                    (1+scale(age_in_months)|participant), 
                                   summary_by_word_participant_and_recording)
 
 model_face_happiness_age <- lmer(scale(face_happiness) ~ scale(age_in_months) + 
-                                   (1|participant), 
+                                   (1+scale(age_in_months)|participant), 
                                  summary_by_word_participant_and_recording)
 
 model_ling_context_happiness_age <- lmer(scale(ling_context_happiness) ~ scale(age_in_months) + 
-                                           (1|participant), 
+                                           (1+scale(age_in_months)|participant), 
                                          summary_by_word_participant_and_recording)
 
 n_faces = nrow(merged_data[face_present == 1,])
@@ -350,22 +376,24 @@ n_happy_faces = nrow(merged_data[face_present == 1 & face_happiness>=0.9,])
 
 merged_data = data.table(merged_data)
 
+n_happy_ling = nrow(merged_data[ling_context_happiness>=0.9,])
+
 ```
 
 # Results
 
 ## Availability of facial and linguistic affect cues
 
-How often do infants encounter facial and linguistic affective cues in the immediate context of early-learned words? On average, across all the data for a given participant, `r round(pct_word_instances_with_face,1)`% of the instances of a given word occurred when a face was in view. This proportion decreased with age (`r papaja::apa_print(model_face_proportion_age)$full_result$scaleage_in_months`; Figure 1b). Of the word instances where a face was in view concurrently, the average facial happiness score was `r round(mean(summary_by_word_participant_and_recording$face_happiness,na.rm = TRUE),2)` (out of 1). The happiness scores for faces coocurring with instances of early-learned words did not change with age in this dataset  (`r papaja::apa_print(model_face_happiness_age)$full_result$scaleage_in_months`; Figure 1c - left). Out of all `r formatC(total_n_instances, format = "d", big.mark = ",")` word instances, `r formatC(n_faces, format = "d", big.mark = ",")` (`r round(n_faces*100/nrow(merged_data),2)`%) occurred with a face in view, and `r n_happy_faces` (`r round(n_happy_faces*100/nrow(merged_data),2)`% of all words and `r round(n_happy_faces*100/nrow(merged_data[face_present == 1,]),2)`% of all words with a face) of those coocurred with a face that received a happiness score greater than 0.9. Of those frames, 2.7% were errors, where a face was not clearly visible. In the remaining frames, 78.6% were adult faces, 6.4% were child faces, and 1.8% were adult faces shown during a video call. And additional 9.3% were faces in pictures or books, and 1.5% were faces on TV.
+How often do infants encounter facial and linguistic affective cues in the immediate context of early-learned words? On average, across all the data for a given participant, `r round(pct_word_instances_with_face,1)`% of the instances of a given word occurred when a face was in view. This proportion decreased with age (`r papaja::apa_print(model_face_proportion_age)$full_result$scaleage_in_months`; Figure 1b). Of the word instances where a face was in view concurrently, the average facial happiness score was `r round(mean(summary_by_word_participant_and_recording$face_happiness,na.rm = TRUE),2)` (out of 1). The happiness scores for faces coocurring with instances of early-learned words did not change with age in this dataset  (`r papaja::apa_print(model_face_happiness_age)$full_result$scaleage_in_months`; Figure 1c - left). Out of all `r formatC(total_n_instances, format = "d", big.mark = ",")` word instances, `r formatC(n_faces, format = "d", big.mark = ",")` (`r round(n_faces*100/nrow(merged_data),2)`%) occurred with a face in view, and `r n_happy_faces` (`r round(n_happy_faces*100/nrow(merged_data),2)`% of all words and `r round(n_happy_faces*100/n_faces,2)`% of all words with a face) of those coocurred with a face that received a happiness score greater than 0.9. Of those frames, 2.7% were errors, where a face was not clearly visible. In the remaining frames, 78.6% were adult faces, 6.4% were child faces, and 1.8% were adult faces shown during a video call. And additional 9.3% were faces in pictures or books, and 1.5% were faces on TV.
 
-Linguistic affect was, by definition, more prevalent, because we measured the affect of the utterances in which words were embedded. Out of the `r formatC(total_n_instances, format = "d", big.mark = ",")` word instances, `r formatC(nrow(merged_data[ling_context_happiness>=0.9,]), format = "d", big.mark = ",")` (`r round(nrow(merged_data[ling_context_happiness>=0.9,])*100/nrow(merged_data), 1)` %) were embedded in utterances that received a sentiment happiness score of 0.9 or higher. The average sentiment score was `r round(mean(summary_by_word_participant_and_recording$ling_context_happiness,na.rm = TRUE),2)` (out of 1), and, as with facial affect, this value will not change significantly with age  (`r papaja::apa_print(model_ling_context_happiness_age)$full_result$scaleage_in_months`; Figure 1c - right).
+Linguistic affect was, by definition, more prevalent, because we measured the affect of the utterances in which words were embedded. Out of the `r formatC(total_n_instances, format = "d", big.mark = ",")` word instances, `r formatC(n_happy_ling, format = "d", big.mark = ",")` (`r round(n_happy_ling*100/nrow(merged_data), 1)` %) were embedded in utterances that received a sentiment happiness score of 0.9 or higher. The average sentiment score was `r round(mean(summary_by_word_participant_and_recording$ling_context_happiness,na.rm = TRUE),2)` (out of 1), and, as with facial affect, this value did not change significantly with age  (`r papaja::apa_print(model_ling_context_happiness_age)$full_result$scaleage_in_months`; Figure 1c - right).
 
 
 ```{r, affect_word_valence}
+merged_data = data.table(merged_data)
+model_word_valence_face_happiness <- lmer(scale(face_happiness) ~ scale(valence) +scale(frequency)+ (1+scale(valence)|participant),merged_data)
 
-model_word_valence_face_happiness <- lmer(scale(valence)~scale(face_happiness) +scale(frequency)+ (1|participant),summary_by_word_participant_and_recording)
-
-model_word_valence_ling_context_happiness <- lmer(scale(valence)~scale(ling_context_happiness)+ scale(frequency) +(1|participant),summary_by_word_participant_and_recording)
+model_word_valence_ling_context_happiness <- lmer(scale(ling_context_happiness) ~ scale(valence)+ scale(frequency) +(1+scale(valence)|participant),merged_data)
 
 interaction_data <- summary_by_word_participant_and_recording %>% 
   pivot_longer(
@@ -388,21 +416,23 @@ interaction_data <- summary_by_word_participant_and_recording %>%
 model_word_valence_interaction <- lmer(scale(valence)~scale(score)*modality+ scale(frequency) +(1|participant),interaction_data)
 
 
-
+library(dplyr)
 ```
 
 ## Words cooccur with matching affective cues
 
-Do the affective cues in parents' faces and utterances carry information about the words they cooccur with? For example, are more positive words embedded in more positive utterances, and are they more likely to cooccur with happy faces? We tested these predictions in a mixed effect model with random intercepts by participant, predicting the valence of the word from the average facial or linguistic affect it coocurred with in each video recording, controlling for the frequency of the word. 
+Do the affective cues in parents' faces and utterances carry information about the words they cooccur with? For example, are more positive words embedded in more positive utterances, and are they more likely to cooccur with happy faces? We tested these predictions in a mixed effect model with random intercepts by participant, predicting the valence of the word from the average facial or linguistic affect it coocurred with in each video recording, controlling for the frequency of the word. `r library(dplyr)`
 
-Word valence from independent ratings was positively associated with the happiness sentiment of the surrounding utterance in the BabyView data (`r papaja::apa_print(model_word_valence_ling_context_happiness)$full_result$scaleling_context_happiness`; Figure 2 - bottom). For example, the average happiness sentiment score for the utterances in which the positive word "smile" was embedded was `r round(mean(merged_data[word == 'smile',ling_context_happiness],na.rm = TRUE),2)` (out of 1), whereas for the negative word "cry" this score was `r round(mean(merged_data[word == 'cry',ling_context_happiness],na.rm = TRUE),2)` (out of 1). Similarly, a relatively neutral word like "eat" has a score of `r round(mean(merged_data[word == 'eat',ling_context_happiness],na.rm = TRUE),2)` (out of 1). 
-Word valence was less strongly, but still positively associated with facial happiness (`r papaja::apa_print(model_word_valence_face_happiness)$full_result$scaleface_happiness`; Figure 2 - top). There was a significant interaction between happiness score and the modality of the context (faces vs. sentiment), such that word valence was more strongly associated with the happiness of the utterance in which the word was embedded compared to the happiness displayed by the faces it coocurred with (`r papaja::apa_print(model_word_valence_interaction)$full_result$scalescore_modalitylinguistic_affect`).
+Word valence from independent ratings was positively associated with the happiness sentiment of the surrounding utterance in the BabyView data (`r papaja::apa_print(model_word_valence_ling_context_happiness)$full_result$scalevalence`; Figure 2 - bottom). For example, the average happiness sentiment score for the utterances in which the positive word "smile" was embedded was `r merged_data %>% filter(word == "smile") %>% summarise(mean_ling_context_happiness = round(mean(ling_context_happiness, na.rm = TRUE), 2))` (out of 1), whereas for the negative word "cry" this score was `r merged_data %>% filter(word == "cry") %>% summarise(mean_ling_context_happiness = round(mean(ling_context_happiness, na.rm = TRUE), 2))` (out of 1). Similarly, a relatively neutral word like "eat" has a score of `r merged_data %>% filter(word == "eat") %>% summarise(mean_ling_context_happiness = round(mean(ling_context_happiness, na.rm = TRUE), 2))` (out of 1). 
+Word valence was less strongly, but still positively associated with facial happiness (`r papaja::apa_print(model_word_valence_face_happiness)$full_result$scalevalence`; Figure 2 - top). There was a significant interaction between happiness score and the modality of the context (faces vs. sentiment), such that word valence was more strongly associated with the happiness of the utterance in which the word was embedded compared to the happiness displayed by the faces it coocurred with (`r papaja::apa_print(model_word_valence_interaction)$full_result$scalescore_modalitylinguistic_affect`).
 
 There were some notable exceptions to the general correlation we observed. For example, the word "gentle" is positively valenced, but it typically appeared in less positive contexts (e.g., "I'm worried you need to be a bit more gentle"). Anecdotally, US parents often say "gentle" to ask children to moderate their behavior, for example, when petting a pet too vigorously. This example illustrates the importance of examining affect in context. 
 
 ```{r, face_ling_association}
 
-model_face_ling <-(lmer(scale(face_happiness)~scale(ling_context_happiness) + (1|participant),summary_by_word_participant_and_recording))
+#model_face_ling <-(lmer(scale(face_happiness)~scale(ling_context_happiness) + (1|participant),summary_by_word_participant_and_recording))
+
+model_face_ling <-(lmer(scale(face_happiness) ~ scale(ling_context_happiness) + (1+scale(ling_context_happiness)|participant),merged_data))
 
 summary_data <- summary_by_word_participant_and_recording %>%
   group_by(participant, word) %>%
@@ -415,7 +445,6 @@ summary_data$participant = as.factor(summary_data$participant)
 ```
 
 ## Sentiment and facial affect do not provide redundant information
-
 To further probe if the faces and utterances surrounding word instances carry redundant information, we tested the association between the average happiness score of the faces vs. utterances each word coocurred with. We fit a mixed effect model where the average happiness score of each word was predicted by the average happiness score of the linguistic context (the utterance) in which each word was embedded with random intercepts by participant. There was no significant association between facial and linguistic context affect (`r papaja::apa_print(model_face_ling)$full_result$scaleling_context_happiness`). 
 
 ```{r figure3, fig.env = "figure", fig.pos = "H", fig.align='center', fig.width=3, fig.height=2, set.cap.width=T, num.cols.cap=1, fig.cap = "Association between facial and linguistic affect surrounding words. The average happiness scores for each word, for each recording in the dataset are plotted, with facial affect on the x-axis, and sentiment on the y-axis. The average regression line is plotted in black. Regression lines for individual participants are plotted with colored dashed lines. "}
@@ -453,7 +482,7 @@ The current investigation underscores the importance of characterizing the emoti
 
 # Acknowledgements
 
-[omitted for blind review]
+We thank the BabyView team for kindly sharing their data, and Clara Stowell for her help with manual annotations. This work is supported by NIH F32 HD115513 (M.L.N.)
 
 # References 
 
