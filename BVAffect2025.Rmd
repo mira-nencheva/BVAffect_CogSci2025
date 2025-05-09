@@ -443,10 +443,6 @@ summary_data <- summary_by_word_participant_and_recording %>%
   )
 summary_data$participant = as.factor(summary_data$participant)
 ```
-
-## Sentiment and facial affect do not provide redundant information
-To further probe if the faces and utterances surrounding word instances carry redundant information, we tested the association between the average happiness score of the faces vs. utterances each word coocurred with. We fit a mixed effect model where the average happiness score of each word was predicted by the average happiness score of the linguistic context (the utterance) in which each word was embedded with random intercepts by participant. There was no significant association between facial and linguistic context affect (`r papaja::apa_print(model_face_ling)$full_result$scaleling_context_happiness`). 
-
 ```{r figure3, fig.env = "figure", fig.pos = "H", fig.align='center', fig.width=3, fig.height=2, set.cap.width=T, num.cols.cap=1, fig.cap = "Association between facial and linguistic affect surrounding words. The average happiness scores for each word, for each recording in the dataset are plotted, with facial affect on the x-axis, and sentiment on the y-axis. The average regression line is plotted in black. Regression lines for individual participants are plotted with colored dashed lines. "}
 ggplot(summary_data, aes(y = face_happiness, x = ling_context_happiness)) +
   geom_point(alpha = 0.05, size = 1, shape = 19) +
@@ -465,6 +461,8 @@ ggplot(summary_data, aes(y = face_happiness, x = ling_context_happiness)) +
     axis.ticks = element_line(color = "black")
   )
 ```
+## Sentiment and facial affect do not provide redundant information
+To further probe if the faces and utterances surrounding word instances carry redundant information, we tested the association between the average happiness score of the faces vs. utterances each word coocurred with. We fit a mixed effect model where the average happiness score of each word was predicted by the average happiness score of the linguistic context (the utterance) in which each word was embedded with random intercepts by participant. There was no significant association between facial and linguistic context affect (`r papaja::apa_print(model_face_ling)$full_result$scaleling_context_happiness`). 
 
 # Discussion
 
